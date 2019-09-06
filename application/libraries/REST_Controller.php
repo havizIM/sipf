@@ -5,6 +5,7 @@ use Exception;
 use stdClass;
 
 defined('BASEPATH') OR exit('No direct script access allowed');
+require APPPATH . 'libraries/REST_Controller_Definitions.php';
 
 /**
  * CodeIgniter Rest Controller
