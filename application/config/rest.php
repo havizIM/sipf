@@ -110,7 +110,7 @@ $config['rest_realm'] = 'REST API';
 |           authorization key
 |
 */
-$config['rest_auth'] = false;
+$config['rest_auth'] = 'basic';
 
 /*
 |--------------------------------------------------------------------------
@@ -211,7 +211,7 @@ $config['auth_library_function'] = '';
 | Array of usernames and passwords for login, if ldap is configured this is ignored
 |
 */
-$config['rest_valid_logins'] = ['admin' => '1234'];
+$config['rest_valid_logins'] = ['sipf-codemaniac' => 'codemaniac123'];
 
 /*
 |--------------------------------------------------------------------------
@@ -377,7 +377,7 @@ $config['rest_key_length'] = 40;
 | 2012/06/12. See RFC 6648 specification for more details
 |
 */
-$config['rest_key_name'] = 'X-API-KEY';
+$config['rest_key_name'] = 'SIPF-KEY';
 
 /*
 |--------------------------------------------------------------------------
@@ -534,7 +534,7 @@ $config['rest_ajax_only'] = false;
 | Language file to load from the language directory
 |
 */
-$config['rest_language'] = 'english';
+$config['rest_language'] = 'indonesia';
 
 /*
 |--------------------------------------------------------------------------
@@ -561,7 +561,9 @@ $config['allowed_cors_headers'] = [
   'X-Requested-With',
   'Content-Type',
   'Accept',
-  'Access-Control-Request-Method'
+  'Access-Control-Request-Method',
+  'SIPF-KEY',
+  'Authorization'
 ];
 
 /*
