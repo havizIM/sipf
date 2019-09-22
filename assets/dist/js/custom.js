@@ -114,25 +114,25 @@ $(function() {
     // ============================================================== 
     // Last month earning
     // ==============================================================
-    var sparklineLogin = function() {
-        $('.lastmonth').sparkline([6, 10, 9, 11, 9, 10, 12], {
-            type: 'bar',
-            height: '35',
-            barWidth: '4',
-            width: '100%',
-            resize: true,
-            barSpacing: '8',
-            barColor: '#2961ff'
-        });
+    // var sparklineLogin = function() {
+    //     $('.lastmonth').sparkline([6, 10, 9, 11, 9, 10, 12], {
+    //         type: 'bar',
+    //         height: '35',
+    //         barWidth: '4',
+    //         width: '100%',
+    //         resize: true,
+    //         barSpacing: '8',
+    //         barColor: '#2961ff'
+    //     });
 
-    };
-    var sparkResize;
+    // };
+    // var sparkResize;
 
-    $(window).resize(function(e) {
-        clearTimeout(sparkResize);
-        sparkResize = setTimeout(sparklineLogin, 500);
-    });
-    sparklineLogin();
+    // $(window).resize(function(e) {
+    //     clearTimeout(sparkResize);
+    //     sparkResize = setTimeout(sparklineLogin, 500);
+    // });
+    // sparklineLogin();
     
     // ============================================================== 
     // This is for the innerleft sidebar
@@ -145,14 +145,14 @@ $(function() {
 
     // Disable right click and f12
     
-    $("html").on("contextmenu",function(e){
-       return false;
-    });
-    $(document).keydown(function (event) {
-        if (event.keyCode == 123) { // Prevent F12
-            return false;
-        } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I        
-            return false;
-        }   
-    });
+    // $("html").on("contextmenu",function(e){
+    //    return false;
+    // });
+    // $(document).keydown(function (event) {
+    //     if (event.keyCode == 123) { // Prevent F12
+    //         return false;
+    //     } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I        
+    //         return false;
+    //     }   
+    // });
 });
