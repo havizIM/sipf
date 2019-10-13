@@ -126,7 +126,7 @@ $config['rest_auth'] = 'basic';
 | Note: If 'rest_auth' is set to 'session' then change 'auth_source' to the name of the session variable
 |
 */
-$config['auth_source'] = 'ldap';
+$config['auth_source'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -377,7 +377,7 @@ $config['rest_key_length'] = 40;
 | 2012/06/12. See RFC 6648 specification for more details
 |
 */
-$config['rest_key_name'] = 'SIPF-KEY';
+$config['rest_key_name'] = 'X-SIPF-KEY';
 
 /*
 |--------------------------------------------------------------------------
@@ -562,7 +562,7 @@ $config['allowed_cors_headers'] = [
   'Content-Type',
   'Accept',
   'Access-Control-Request-Method',
-  'SIPF-KEY',
+  'X-SIPF-KEY',
   'Authorization'
 ];
 

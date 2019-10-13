@@ -14,9 +14,24 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/dashboard');
 	}
 
+	public function customer()
+	{
+		$this->load->view('admin/customer/data');
+	}
+
 	public function purchase_order()
 	{
 		$this->load->view('admin/purchase_order/data');
+	}
+
+	public function add_purchase_order()
+	{
+		$this->load->view('admin/purchase_order/add');
+	}
+
+	public function edit_purchase_order($id)
+	{
+		$this->load->view('admin/purchase_order/edit');
 	}
 
 	public function log()

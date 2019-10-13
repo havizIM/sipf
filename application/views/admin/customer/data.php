@@ -1,12 +1,12 @@
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-5 align-self-center">
-            <h4 class="page-title">User</h4>
+            <h4 class="page-title">Customer</h4>
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#/dashboard">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">User</li>
+                        <li class="breadcrumb-item active" aria-current="page">Customer</li>
                     </ol>
                 </nav>
             </div>
@@ -23,17 +23,18 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-hover table-stripped" id="t_user">
+                        <table class="table table-hover table-stripped" id="t_customer">
                             <thead>
                                 <tr>
-                                    <th>ID User</th>
-                                    <th>Username</th>
-                                    <th>Nama Lengkap</th>
+                                    <th>ID Customer</th>
+                                    <th>Nama Perusahaan</th>
+                                    <th>Nama PIC</th>
                                     <th>Email</th>
                                     <th>Telepon</th>
-                                    <th>Level</th>
-                                    <th>Status</th>
-                                    <th>Tgl Registrasi</th>
+                                    <th>Bank</th>
+                                    <th>Cabang</th>
+                                    <th>No Rekening</th>
+                                    <th>Tgl Input</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -51,17 +52,17 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="vcenter">Tambah User</h4>
+                    <h4 class="modal-title" id="vcenter">Tambah Customer</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap">
+                        <label for="">Nama Perusahaan</label>
+                        <input type="text" class="form-control" id="nama_perusahaan" name="nama_perusahaan">
                     </div>
                     <div class="form-group">
-                        <label for="">Username</label>
-                        <input type="text" class="form-control" id="username" name="username">
+                        <label for="">PIC</label>
+                        <input type="text" class="form-control" id="nama_pic" name="nama_pic">
                     </div>
                     <div class="form-group">
                         <label for="">Email</label>
@@ -72,21 +73,16 @@
                         <input type="number" class="form-control" id="telepon" name="telepon">
                     </div>
                     <div class="form-group">
-                        <label for="">Level</label>
-                        <select class="form-control" id="level" name="level">
-                            <option value="">-</option>
-                            <option value="Admin">Admin</option>
-                            <option value="Finance">Finance</option>
-                            <option value="Manager">Manager</option>
-                        </select>
+                        <label for="">Bank</label>
+                        <input type="text" class="form-control" id="bank" name="bank">
                     </div>
                     <div class="form-group">
-                        <label for="">Status</label>
-                        <select class="form-control" id="aktif" name="aktif">
-                            <option value="">-</option>
-                            <option value="Y">Aktif</option>
-                            <option value="T">Tidak Aktif</option>
-                        </select>
+                        <label for="">Cabang</label>
+                        <input type="text" class="form-control" id="cabang" name="cabang">
+                    </div>
+                    <div class="form-group">
+                        <label for="">No Rekening</label>
+                        <input type="number" class="form-control" id="no_rekening" name="no_rekening">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -105,21 +101,21 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="vcenter">Edit User</h4>
+                    <h4 class="modal-title" id="vcenter">Edit Customer</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="">ID User</label>
-                        <input type="text" class="form-control" id="edit_id_user" name="id_user" readonly>
+                        <label for="">ID Customer</label>
+                        <input type="text" class="form-control" id="edit_id_customer" name="id_customer" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="edit_nama_lengkap" name="nama_lengkap">
+                        <label for="">Nama Perusahaan</label>
+                        <input type="text" class="form-control" id="edit_nama_perusahaan" name="nama_perusahaan">
                     </div>
                     <div class="form-group">
-                        <label for="">Username</label>
-                        <input type="text" class="form-control" id="edit_username" name="username">
+                        <label for="">PIC</label>
+                        <input type="text" class="form-control" id="edit_nama_pic" name="nama_pic">
                     </div>
                     <div class="form-group">
                         <label for="">Email</label>
@@ -130,21 +126,16 @@
                         <input type="number" class="form-control" id="edit_telepon" name="telepon">
                     </div>
                     <div class="form-group">
-                        <label for="">Level</label>
-                        <select class="form-control" id="edit_level" name="level">
-                            <option value="">-</option>
-                            <option value="Admin">Admin</option>
-                            <option value="Finance">Finance</option>
-                            <option value="Manager">Manager</option>
-                        </select>
+                        <label for="">Bank</label>
+                        <input type="text" class="form-control" id="edit_bank" name="bank">
                     </div>
                     <div class="form-group">
-                        <label for="">Status</label>
-                        <select class="form-control" id="edit_aktif" name="aktif">
-                            <option value="">-</option>
-                            <option value="Y">Aktif</option>
-                            <option value="T">Tidak Aktif</option>
-                        </select>
+                        <label for="">Cabang</label>
+                        <input type="text" class="form-control" id="edit_cabang" name="cabang">
+                    </div>
+                    <div class="form-group">
+                        <label for="">No Rekening</label>
+                        <input type="number" class="form-control" id="edit_no_rekening" name="no_rekening">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -163,19 +154,19 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="vcenter">Hapus User</h4>
+                    <h4 class="modal-title" id="vcenter">Hapus Customer</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="">ID User</label>
-                        <input type="text" class="form-control" id="delete_id_user" name="id_user" readonly>
+                        <label for="">ID Customer</label>
+                        <input type="text" class="form-control" id="delete_id_customer" name="id_customer" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="delete_nama_lengkap" name="nama_lengkap" readonly>
+                        <label for="">Nama PIC</label>
+                        <input type="text" class="form-control" id="delete_nama_pic" name="nama_pic" readonly>
                     </div>
-                    Apakah anda yakin menghapus User ini?
+                    Apakah anda yakin menghapus Customer ini?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Tidak</button>
@@ -193,5 +184,5 @@
 </footer>
 
 <script type="text/javascript">
-    $.getScript(`${BASE_URL}src/manager/user/data.js`)
+    $.getScript(`${BASE_URL}src/admin/customer/data.js`)
 </script>

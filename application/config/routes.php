@@ -53,6 +53,9 @@ $route['default_controller'] = 'auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = true;
 
+$route['admin/purchase_order/add'] = 'admin/add_purchase_order';
+$route['admin/purchase_order/edit/(:any)'] = 'admin/edit_purchase_order/$1';
+
 
 /*
 | -------------------------------------------------------------------------

@@ -4,17 +4,23 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!-- Favicon icon -->
+    
     <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url() ?>assets/images/favicon.png">
     <title>Admin | UTI</title>
-    <!-- Custom CSS -->
     <link href="<?= base_url() ?>assets/dist/css/style.css" rel="stylesheet">
+    <link href="<?= base_url() ?>assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
+    <link href="<?= base_url() ?>assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
 
     <script src="<?= base_url() ?>src/additional.js"></script>
+
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 
 <body>
@@ -175,6 +181,7 @@
                     <ul id="sidebarnav">
                         
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#/dashboard" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#/customer" aria-expanded="false"><i class="fas fa-user"></i><span class="hide-menu">Customer</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#/purchase_order" aria-expanded="false"><i class="fas fa-file"></i><span class="hide-menu">Purchase Order</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#/log" aria-expanded="false"><i class="fas fa-recycle"></i><span class="hide-menu">Log</span></a></li>
                         
@@ -207,6 +214,10 @@
     <script src="<?= base_url() ?>assets/dist/js/custom.js"></script>
 
     <script src="<?= base_url() ?>assets/libs/block-ui/jquery.blockUI.js"></script>
+    <script src="<?= base_url() ?>assets/extra-libs/DataTables/datatables.min.js"></script>
+    <script src="<?= base_url() ?>assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="<?= base_url() ?>assets/libs/toastr/build/toastr.min.js"></script>
+    
     <script src="<?= base_url() ?>src/admin/main.js"></script>
 </body>
 

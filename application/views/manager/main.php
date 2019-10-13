@@ -13,8 +13,16 @@
     <title>Manager | UTI</title>
     <!-- Custom CSS -->
     <link href="<?= base_url() ?>assets/dist/css/style.css" rel="stylesheet">
+    <link href="<?= base_url() ?>assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
+    <link href="<?= base_url() ?>assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
 
     <script src="<?= base_url() ?>src/additional.js"></script>
+
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 
 <body>
@@ -208,6 +216,10 @@
     <script src="<?= base_url() ?>assets/dist/js/custom.js"></script>
 
     <script src="<?= base_url() ?>assets/libs/block-ui/jquery.blockUI.js"></script>
+    <script src="<?= base_url() ?>assets/extra-libs/DataTables/datatables.min.js"></script>
+    <script src="<?= base_url() ?>assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="<?= base_url() ?>assets/libs/toastr/build/toastr.min.js"></script>
+
     <script src="<?= base_url() ?>src/manager/main.js"></script>
 </body>
 
