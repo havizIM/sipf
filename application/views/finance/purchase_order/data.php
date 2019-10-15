@@ -22,13 +22,52 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    This is some text within a card block.
+                    <div class="table-responsive">
+                        <table class="table table-hover table-stripped" id="t_po">
+                            <thead>
+                                <tr>
+                                    <th>No PO</th>
+                                    <th>Customer</th>
+                                    <th>Total</th>
+                                    <th>Fee</th>
+                                    <th>Marketing</th>
+                                    <th>Status</th>
+                                    <th>File PO</th>
+                                    <th>User</th>
+                                    <th>Tgl PO</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<div id="modal_file" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="vcenter" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="vcenter">File PO <b class="id_po"></b></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <a class="file_po_href" target="__blank">
+                    <img class="img-fluid file_po_src" />
+                </a>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 <footer class="footer text-center">
-    All Rights Reserved by Xtreme admin. Designed and Developed by <a href="https://wrappixel.com">WrapPixel</a>.
+    Made with <i class="fa fa-heart text-danger"></i> by Siti Chadijah.
 </footer>
+
+<script type="text/javascript">
+    $.getScript(`${BASE_URL}src/finance/purchase_order/data.js`)
+</script>

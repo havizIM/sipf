@@ -1,30 +1,22 @@
-console.log('Data PO is running...')
+console.log('Data Payment is running...')
 
 $(function () {
     const DOM = {
-        table: '#t_po',
+        table: '#t_payment',
         modal: {
             content: '.modal-content',
-            approve: '#modal_approve',
+            delete: '#modal_delete',
             file: '#modal_file'
         },
         button: {
-            approve: '.btn_approve'
+            delete: '.btn_delete'
         },
         form: {
-            approve: '#form_approve'
+            delete: '#form_delete'
         },
         input: {
-            no_po: '#no_po',
+            no_payment: '#no_payment',
             nama_pic: '#nama_pic'
-        },
-        link: {
-            file: '.link_file'
-        },
-        image: {
-            href: '.file_po_href',
-            src: '.file_po_src',
-            id: '.id_po'
         }
     }
 
@@ -46,7 +38,7 @@ $(function () {
         "hideMethod": "slideUp"
     }
 
-    const tablePo = $(DOM.table).DataTable({
+    const tablePayment = $(DOM.table).DataTable({
         columnDefs: [
             {
                 targets: [],
@@ -58,9 +50,10 @@ $(function () {
             }
         ],
         responsive: true,
+        autoWidth: true,
         processing: true,
         ajax: {
-            url: `${BASE_URL}api/purchase_order`,
+            url: `${BASE_URL}api/payment`,
             type: 'GET',
             dataType: 'JSON',
             beforeSend: xhr => {
@@ -68,6 +61,7 @@ $(function () {
                 xhr.setRequestHeader("Authorization", "Basic " + btoa(USERNAME + ":" + PASSWORD))
             },
             dataSrc: res => {
+                console.log(res.data)
                 return res.data
             },
             error: err => {
@@ -78,7 +72,7 @@ $(function () {
             {
                 data: null, render: (data, type, row) => {
                     return `
-                        <a href="javascript:void(0)" class="link_file" data-src="${row.file_po}" data-id="${row.no_po}">${row.no_po}</a>
+                        <a href="#/payment/${row.no_payment}">${row.no_payment}</a>
                     `
                 }
             },
@@ -90,47 +84,32 @@ $(function () {
                 }
             },
             {
-                data: "total_po"
-            },
-            {
-                data: "total_fee"
-            },
-            {
-                data: "marketing"
-            },
-            {
                 data: null, render: (data, type, row) => {
-                    if (row.approve === 'Y') {
-                        return `<span class="badge badge-success">Approve</span> `
-                    } else {
-                        return `<span class="badge badge-warning">Proses</span>`
-                    }
+                    return `${row.detail !== null ? row.detail.length : '0'} PO`
                 }
             },
             {
                 data: null, render: (data, type, row) => {
-                    return `
-                        -
-                    `
+                    return `Rp. ${row.total_bayar}`
                 }
             },
             {
                 data: "user.nama_lengkap"
             },
             {
-                data: "tgl_input_po"
+                data: "tgl_payment"
+            },
+            {
+                data: "tgl_input_payment"
             },
             {
                 data: null, render: (data, type, row) => {
-                    if (row.approve === 'T') {
-                        return `
-                            <div class="btn-group">	
-                                <button class="btn btn-success btn-sm btn_approve" data-id="${row.no_po}"><i class="fa fa-check"></i> Approve</button>	
-                            </div>
-                        `
-                    } else {
-                        return '-'
-                    }
+                    return `
+                        <div class="btn-group">
+                            <a href="#/payment/edit/${row.no_payment}" class="btn btn-success btn-sm btn_edit"><i class="fa fa-edit"></i> Edit</a>	
+                            <button class="btn btn-danger btn-sm btn_delete" data-id="${row.no_payment}"><i class="fa fa-times"></i> Hapus</button>	
+                        </div>
+                    `
 
                 }
             }
@@ -140,12 +119,12 @@ $(function () {
 
     const PoController = (() => {
 
-        const { table, form, modal, button, input, link, image } = DOM
+        const { table, form, modal, button, input } = DOM
 
-        const fetchPo = (id, callback) => {
+        const fetchPayment = (id, callback) => {
             $.ajax({
-                url: `${BASE_URL}api/purchase_order`,
-                data: { no_po: id },
+                url: `${BASE_URL}api/payment`,
+                data: { no_payment: id },
                 type: 'GET',
                 dataType: 'JSON',
                 beforeSend: xhr => {
@@ -162,37 +141,37 @@ $(function () {
             })
         }
 
-        const approvePo = () => {
-            $(table).on('click', button.approve, function () {
-                let no_po = $(this).data('id')
+        const deletePo = () => {
+            $(table).on('click', button.delete, function () {
+                let no_payment = $(this).data('id')
 
-                fetchPo(no_po, data => {
+                fetchPayment(no_payment, data => {
                     if (data.length === 1) {
                         data.map(v => {
-                            $(input.no_po).val(v.no_po)
+                            $(input.no_payment).val(v.no_payment)
                             $(input.nama_pic).val(v.customer.nama_pic)
                         })
 
-                        $(modal.approve).modal('show')
+                        $(modal.delete).modal('show')
                     }
                 })
             })
         }
 
-        const submitApprove = () => {
-            $(form.approve).validate({
+        const submitDelete = () => {
+            $(form.delete).validate({
                 rules: {
-                    no_po: 'required',
+                    no_payment: 'required',
                     nama_pic: 'required',
                 },
                 messages: {
-                    no_po: 'No PO harus diisi',
+                    no_payment: 'No Payment harus diisi',
                     nama_pic: 'Nama PIC harus diisi',
                 },
                 submitHandler: form => {
                     $.ajax({
-                        url: `${BASE_URL}api/purchase_order/approve`,
-                        type: 'PUT',
+                        url: `${BASE_URL}api/payment/delete`,
+                        type: 'DELETE',
                         dataType: 'JSON',
                         data: $(form).serialize(),
                         beforeSend: xhr => {
@@ -214,8 +193,8 @@ $(function () {
                         },
                         success: ({ message }) => {
                             toastr.success(message, 'Berhasil')
-                            $(modal.approve).modal('hide')
-                            tablePo.ajax.reload()
+                            $(modal.delete).modal('hide')
+                            tablePayment.ajax.reload()
                         },
                         error: err => {
                             const { error } = err.responseJSON
@@ -229,23 +208,10 @@ $(function () {
             })
         }
 
-        const openFile = () => {
-            $(table).on('click', link.file, function () {
-                let path = $(this).data('src')
-                let id = $(this).data('id')
-
-                $(image.id).text(`#${id}`)
-                $(image.href).attr('href', path)
-                $(image.src).attr('src', path)
-                $(modal.file).modal('show')
-            })
-        }
-
         return {
             init: () => {
-                approvePo();
-                openFile();
-                submitApprove();
+                deletePo();
+                submitDelete();
             }
         }
     })()

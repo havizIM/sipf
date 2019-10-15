@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 require APPPATH . 'libraries/REST_Controller.php';
 require APPPATH . 'libraries/Format.php';
 
-class Purchase_order extends CI_Controller {
+class Payment extends CI_Controller {
 
     use REST_Controller {
         REST_Controller::__construct as private __resTraitConstruct;
@@ -19,7 +19,7 @@ class Purchase_order extends CI_Controller {
         $this->token    = $this->input->get_request_header('X-SIPF-KEY', TRUE);
         $this->auth     = AUTHORIZATION::validateToken($this->token);
 
-        $this->load->model('PurchaseOrderModel');
+        $this->load->model('PaymentModel');
         $this->load->model('CustomerModel');
         $this->load->model('PaymentDetailModel');
     }
@@ -31,17 +31,16 @@ class Purchase_order extends CI_Controller {
         } else {
             
             $where = array(
-                'a.no_po' => $this->get('no_po'),
-                'a.id_customer' => $this->get('id_customer')
+                'a.no_payment' => $this->get('no_payment')
             );
 
-            $po   = $this->PurchaseOrderModel->fetch($where)->result();
+            $payment   = $this->PaymentModel->fetch($where)->result();
             $data   = array();
 
-            foreach($po as $key){
+            foreach($payment as $key){
                 $json = array();
 
-                $json['no_po'] = $key->no_po;
+                $json['no_payment'] = $key->no_payment;
                 $json['customer'] = array(
                     'id_customer' => $key->id_customer,
                     'nama_perusahaan' => $key->nama_perusahaan,
@@ -56,28 +55,31 @@ class Purchase_order extends CI_Controller {
                     'id_user' => $key->id_user,
                     'nama_lengkap' => $key->nama_lengkap
                 );
-                $json['file_po'] = base_url().'doc/po/'.$key->file_po;
-                $json['total_po'] = $key->total_po;
-                $json['total_fee'] = $key->total_fee;
-                $json['tgl_input_po'] = $key->tgl_input_po;
-                $json['marketing'] = $key->marketing;
-                $json['approve'] = $key->approve;
-                $json['payment'] = null;
+                $json['total_bayar'] = $key->total_bayar;
+                $json['tgl_payment'] = $key->tgl_payment;
+                $json['tgl_input_payment'] = $key->tgl_input_payment;
+                $json['detail'] = null;
 
-                $where2 = array('a.no_po' => $key->no_po);
-                $payment = $this->PaymentDetailModel->fetch($where2)->result();
+                $where2 = array('a.no_payment' => $key->no_payment);
+                $detail = $this->PaymentDetailModel->fetch($where2)->result();
 
-                foreach($payment as $key2){
-                    $json_b['no_payment'] = $key2->no_payment;
+                foreach($detail as $key2){
+                    $json_b = array();
+
+                    $json_b['no_po'] = $key2->no_po;
+                    $json_b['total_po'] = $key2->total_po;
+                    $json_b['total_fee'] = $key2->total_fee;
+                    $json_b['marketing'] = $key2->marketing;
+                    $json_b['tgl_input_po'] = $key2->tgl_input_po;
                     $json_b['jml_dibayar'] = $key2->jml_dibayar;
                     
-                    $json['payment'][] = $json_b;
+                    $json['detail'][] = $json_b;
                 }
 
                 $data[] = $json;
             }
 
-            $this->response(['status' => true, 'message' => 'Berhasil menampilkan purchase order', 'data' => $data], 200);
+            $this->response(['status' => true, 'message' => 'Berhasil menampilkan payment', 'data' => $data], 200);
         }
     }
 
@@ -90,28 +92,28 @@ class Purchase_order extends CI_Controller {
 
             $config = array(
                 array(
-                    'field' => 'no_po',
-                    'label' => 'No PO',
-                    'rules' => 'required|trim|is_unique[purchase_order.no_po]'
-                ),
-                array(
                     'field' => 'id_customer',
                     'label' => 'Customer',
                     'rules' => 'required|trim|callback_cek_customer'
                 ),
                 array(
-                    'field' => 'total_po',
-                    'label' => 'Total PO',
+                    'field' => 'tgl_payment',
+                    'label' => 'Tgl Payment',
                     'rules' => 'required|trim'
                 ),
                 array(
-                    'field' => 'total_fee',
-                    'label' => 'Total Fee',
+                    'field' => 'total_bayar',
+                    'label' => 'Total Bayar',
                     'rules' => 'required|trim'
                 ),
                 array(
-                    'field' => 'marketing',
-                    'label' => 'Marketing',
+                    'field' => 'no_po[]',
+                    'label' => 'No Purchase Order',
+                    'rules' => 'required|trim'
+                ),
+                array(
+                    'field' => 'jml_dibayar[]',
+                    'label' => 'Jumlah Dibayar',
                     'rules' => 'required|trim'
                 )
             );
@@ -122,29 +124,38 @@ class Purchase_order extends CI_Controller {
             if(!$this->form_validation->run()){
                 $this->response(['status' => false, 'error' => $this->form_validation->error_array()], 400);
             } else {
+                $post = $this->post();
+                $no_payment = $this->KodeModel->buat_kode('payment', 'PY-'.date('my').'-', 'no_payment', 3);
 
                 $data = array(
-                    'no_po' => $this->post('no_po'),
+                    'no_payment' => $no_payment,
                     'id_customer' => $this->post('id_customer'),
                     'id_user' => $this->auth->id_user,
-                    'file_po' => $this->upload_file('file_po', $this->post('no_po')),
-                    'total_po' => $this->post('total_po'),
-                    'total_fee' => $this->post('total_fee'),
-                    'marketing' => $this->post('marketing')
+                    'tgl_payment' => $this->post('tgl_payment'),
+                    'total_bayar' => $this->post('total_bayar')
                 );
+
+                $detail  = array();
+                foreach($post['no_po'] as $key => $val){
+                    $detail[] = array(
+                        'no_payment' => $no_payment,
+                        'no_po' => $post['no_po'][$key],
+                        'jml_dibayar' => $post['jml_dibayar'][$key]
+                    );
+                }
 
                 $log = array(
                     'id_user' => $this->auth->id_user,
-                    'referensi' => 'PO',
-                    'deskripsi' => 'Menambahkan PO baru'
+                    'referensi' => 'Payment',
+                    'deskripsi' => 'Menambahkan Payment baru'
                 );
 
-                $add = $this->PurchaseOrderModel->add($data, $log);
+                $add = $this->PaymentModel->add($data, $detail, $log);
 
                 if(!$add){
-                    $this->response(['status' => false, 'message' => 'Gagal menambahkan purchase order'], 500);
+                    $this->response(['status' => false, 'message' => 'Gagal menambahkan payment'], 500);
                 } else {
-                    $this->response(['status' => true, 'message' => 'Berhasil menambahkan purchase order'], 200);
+                    $this->response(['status' => true, 'message' => 'Berhasil menambahkan payment'], 200);
                 }
             }
         } 
@@ -215,58 +226,12 @@ class Purchase_order extends CI_Controller {
                     'deskripsi' => 'Mengedit purchase order'
                 );
 
-                $edit = $this->PurchaseOrderModel->edit($where, $data, $log);
+                $edit = $this->PaymentModel->edit($where, $data, $log);
 
                 if(!$edit){
                     $this->response(['status' => false, 'message' => 'Gagal mengedit purchase order'], 500);
                 } else {
                     $this->response(['status' => true, 'message' => 'Berhasil mengedit purchase order'], 200);
-                }
-            }
-        } 
-    }
-
-    public function approve_put()
-    {
-        if(!$this->auth){
-            $this->response(['status' => false, 'error' => 'Invalid Token'], 400);
-        } else {
-            $otorisasi  = $this->auth;
-
-            $config = array(
-                array(
-                    'field' => 'no_po',
-                    'label' => 'No PO',
-                    'rules' => 'required|trim|callback_cek_po'
-                )
-            );
-
-            $this->form_validation->set_data($this->put());
-            $this->form_validation->set_rules($config);
-
-            if(!$this->form_validation->run()){
-                $this->response(['status' => false, 'error' => $this->form_validation->error_array()], 400);
-            } else {
-                $where  = array(
-                    'no_po'   => $this->put('no_po') 
-                );
-
-                $data = array(
-                    'approve' => 'Y'
-                );
-
-                $log = array(
-                    'id_user' => $this->auth->id_user,
-                    'referensi' => 'PO',
-                    'deskripsi' => 'Approve purchase order'
-                );
-
-                $edit = $this->PurchaseOrderModel->edit($where, $data, $log);
-
-                if(!$edit){
-                    $this->response(['status' => false, 'message' => 'Gagal approve purchase order'], 500);
-                } else {
-                    $this->response(['status' => true, 'message' => 'Berhasil approve purchase order'], 200);
                 }
             }
         } 
@@ -281,9 +246,9 @@ class Purchase_order extends CI_Controller {
 
             $config = array(
                 array(
-                    'field' => 'no_po',
-                    'label' => 'No PO',
-                    'rules' => 'required|trim|callback_cek_po'
+                    'field' => 'no_payment',
+                    'label' => 'No Payment',
+                    'rules' => 'required|trim|callback_cek_payment'
                 )
             );
 
@@ -294,35 +259,35 @@ class Purchase_order extends CI_Controller {
                 $this->response(['status' => false, 'error' => $this->form_validation->error_array()], 400);
             } else {
                 $where  = array(
-                    'no_po'   => $this->delete('no_po') 
+                    'no_payment'   => $this->delete('no_payment') 
                 );
 
                 $log = array(
                     'id_user' => $this->auth->id_user,
-                    'referensi' => 'PO',
-                    'deskripsi' => 'Menghapus purchase order'
+                    'referensi' => 'Payment',
+                    'deskripsi' => 'Menghapus payment'
                 );
 
-                $delete = $this->PurchaseOrderModel->delete($where, $log);
+                $delete = $this->PaymentModel->delete($where, $log);
 
                 if(!$delete){
-                    $this->response(['status' => false, 'message' => 'Gagal menghapus purchase order'], 500);
+                    $this->response(['status' => false, 'message' => 'Gagal menghapus payment'], 500);
                 } else {
-                    $this->response(['status' => true, 'message' => 'Berhasil menghapus purchase order'], 200);
+                    $this->response(['status' => true, 'message' => 'Berhasil menghapus payment'], 200);
                 }
             }
         } 
     }
 
-    function cek_po($id){
+    function cek_payment($id){
          $where = array(
-            'no_po' => $id
+            'no_payment' => $id
         );
 
-        $cek   = $this->PurchaseOrderModel->fetch($where)->num_rows();
+        $cek   = $this->PaymentModel->fetch($where)->num_rows();
 
         if ($cek == 0){
-            $this->form_validation->set_message('cek_po', 'No PO tidak ditemukan');
+            $this->form_validation->set_message('cek_payment', 'No Payment tidak ditemukan');
             return FALSE;
         } else {
             return TRUE;
@@ -341,31 +306,6 @@ class Purchase_order extends CI_Controller {
             return FALSE;
         } else {
             return TRUE;
-        }
-    }
-
-    function upload_file($name, $id)
-    {
-        if(isset($_FILES[$name]) && $_FILES[$name]['name'] != ""){
-
-        $config['upload_path']   = './doc/po/';
-        $config['allowed_types'] = 'jpg|jpeg|png|pdf|doc|docx';
-        $config['overwrite']     = TRUE;
-        $config['max_size']      = '3048';
-        $config['remove_space']  = TRUE;
-        $config['encrypt_name'] = TRUE;
-
-        $this->load->library('upload', $config);
-        $this->upload->initialize($config);
-
-        if(!$this->upload->do_upload($name)){
-            return null;
-        } else {
-            $file = $this->upload->data();
-            return $file['file_name'];
-        }
-        } else {
-            return null;
         }
     }
 

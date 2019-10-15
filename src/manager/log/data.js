@@ -17,6 +17,7 @@ $(function () {
                 orderable: false
             }
         ],
+        responsive: true,
         processing: true,
         ajax: {
             url: `${BASE_URL}api/log`,

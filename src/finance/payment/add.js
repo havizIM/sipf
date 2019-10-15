@@ -24,31 +24,26 @@ $(function () {
         "hideMethod": "slideUp"
     }
 
-    const addPoController = (() => {
-        const {form, card } = DOM
+    const addPaymentController = (() => {
+        const { form, card } = DOM
 
         const submitAdd = () => {
             $(form).validate({
+                ignore: "",
                 rules: {
-                    no_po: 'required',
                     customer: 'required',
-                    file_po: 'required',
-                    total_po: 'required',
-                    total_fee: 'required',
-                    marketing: 'required'
+                    tgl_payment: 'required',
+                    total_bayar: 'required'
                 },
                 messages: {
-                    no_po: 'No PO harus diisi',
                     customer: 'Customer harus dipilih',
-                    file_po: 'File harus dipilih',
-                    total_po: 'Total PO harus diisi',
-                    total_fee: 'Total Fee harus diisi',
-                    marketing: 'Marketing harus diisi'
+                    tgl_payment: 'Tgl Payment harus diisi',
+                    total_bayar: 'Silahkan pilih PO yang akan dibayarkan'
                 },
                 errorPlacement: function (error, element) {
                     let id = $(element).attr("id");
 
-                    if(id === 'customer'){
+                    if (id === 'customer') {
                         let customer = $('#customer').parent();
                         error.insertAfter(customer)
                     } else {
@@ -57,12 +52,10 @@ $(function () {
                 },
                 submitHandler: form => {
                     $.ajax({
-                        url: `${BASE_URL}api/purchase_order/add`,
+                        url: `${BASE_URL}api/payment/add`,
                         type: 'POST',
                         dataType: 'JSON',
-                        data: new FormData(form),
-                        contentType: false,
-                        processData: false,
+                        data: $(form).serialize(),
                         beforeSend: xhr => {
                             xhr.setRequestHeader("X-SIPF-KEY", TOKEN)
                             xhr.setRequestHeader("Authorization", "Basic " + btoa(USERNAME + ":" + PASSWORD))
@@ -82,7 +75,7 @@ $(function () {
                         },
                         success: ({ message }) => {
                             toastr.success(message, 'Berhasil')
-                            location.hash = '#/purchase_order'
+                            location.hash = '#/payment'
                         },
                         error: err => {
                             const { error } = err.responseJSON
@@ -103,5 +96,5 @@ $(function () {
         }
     })()
 
-    addPoController.init();
+    addPaymentController.init();
 })

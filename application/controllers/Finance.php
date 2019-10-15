@@ -24,6 +24,21 @@ class Finance extends CI_Controller {
 		$this->load->view('finance/payment/data');
 	}
 
+	public function add_payment()
+	{
+		$this->load->view('finance/payment/add');
+	}
+
+	public function edit_payment($id)
+	{
+		$this->load->view('finance/payment/edit', $id);
+	}
+
+	public function detail_payment($id)
+	{
+		$this->load->view('finance/payment/detail', $id);
+	}
+
 	public function log()
 	{
 		$this->load->view('finance/log/data');

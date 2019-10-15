@@ -22,7 +22,20 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    This is some text within a card block.
+                    <div class="table-responsive">
+                        <table class="table table-hover table-stripped" id="t_log">
+                            <thead>
+                                <tr>
+                                    <th>ID Log</th>
+                                    <th>User</th>
+                                    <th>Referensi</th>
+                                    <th>Deskripsi</th>
+                                    <th>Tanggal</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -30,5 +43,9 @@
 </div>
 
 <footer class="footer text-center">
-    All Rights Reserved by Xtreme admin. Designed and Developed by <a href="https://wrappixel.com">WrapPixel</a>.
+    Made with <i class="fa fa-heart text-danger"></i> by Siti Chadijah.
 </footer>
+
+<script type="text/javascript">
+    $.getScript(`${BASE_URL}src/finance/log/data.js`)
+</script>

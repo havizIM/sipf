@@ -11,7 +11,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url() ?>assets/images/favicon.png">
     <title>Admin | UTI</title>
     <link href="<?= base_url() ?>assets/dist/css/style.css" rel="stylesheet">
-    <link href="<?= base_url() ?>assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.2/css/responsive.bootstrap4.min.css"/>
     <link href="<?= base_url() ?>assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
     <style>
         .error {
@@ -184,7 +185,10 @@
     <script src="<?= base_url() ?>assets/dist/js/custom.js"></script>
 
     <script src="<?= base_url() ?>assets/libs/block-ui/jquery.blockUI.js"></script>
-    <script src="<?= base_url() ?>assets/extra-libs/DataTables/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.2/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.2/js/responsive.bootstrap4.min.js"></script>
     <script src="<?= base_url() ?>assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="<?= base_url() ?>assets/libs/toastr/build/toastr.min.js"></script>
     

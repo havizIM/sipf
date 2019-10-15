@@ -67,6 +67,8 @@ $(function () {
                 orderable: false
             }
         ],
+        responsive: true,
+        autoWidth: true,
         processing: true,
         ajax: {
             url: `${BASE_URL}api/customer`,

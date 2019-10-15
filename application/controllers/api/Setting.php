@@ -161,7 +161,7 @@ class Setting extends CI_Controller {
 
                 $log    = array(
                     'id_user' => $otorisasi->id_user,
-                    'referensi' => 'Auth',
+                    'referensi' => 'Profile',
                     'deskripsi' => 'Berhasil mengedit profile'
                 );
 
@@ -185,7 +185,7 @@ class Setting extends CI_Controller {
 
             $data = array(
                 'id_user' => $otorisasi->id_user,
-                'referensi' => 'Auth',
+                'referensi' => 'Logout',
                 'deskripsi' => 'Berhasil melakukan logout'
             );
 
