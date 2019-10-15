@@ -189,7 +189,7 @@
 </form>
 
 <footer class="footer text-center">
-    All Rights Reserved by Xtreme admin. Designed and Developed by <a href="https://wrappixel.com">WrapPixel</a>.
+    Made with <i class="fa fa-heart text-danger"></i> by Siti Chadijah.
 </footer>
 
 <script type="text/javascript">

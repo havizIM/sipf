@@ -5,14 +5,14 @@ $(function () {
         table: '#t_po',
         modal: {
             content: '.modal-content',
-            delete: '#modal_delete',
+            approve: '#modal_approve',
             file: '#modal_file'
         },
         button: {
-            delete: '.btn_delete'
+            approve: '.btn_approve'
         },
         form: {
-            delete: '#form_delete'
+            approve: '#form_approve'
         },
         input: {
             no_po: '#no_po',
@@ -121,17 +121,16 @@ $(function () {
             },
             {
                 data: null, render: (data, type, row) => {
-                    if(row.approve === 'T'){
+                    if (row.approve === 'T') {
                         return `
-                            <div class="btn-group">
-                                <a href="#/purchase_order/edit/${row.no_po}" class="btn btn-success btn-sm btn_edit"><i class="fa fa-edit"></i> Edit</a>	
-                                <button class="btn btn-danger btn-sm btn_delete" data-id="${row.no_po}"><i class="fa fa-times"></i> Hapus</button>	
+                            <div class="btn-group">	
+                                <button class="btn btn-success btn-sm btn_approve" data-id="${row.no_po}"><i class="fa fa-check"></i> Approve</button>	
                             </div>
                         `
                     } else {
                         return '-'
                     }
-                    
+
                 }
             }
         ],
@@ -140,7 +139,7 @@ $(function () {
 
     const PoController = (() => {
 
-        const {table, form, modal, button, input, link, image} = DOM
+        const { table, form, modal, button, input, link, image } = DOM
 
         const fetchPo = (id, callback) => {
             $.ajax({
@@ -162,8 +161,8 @@ $(function () {
             })
         }
 
-        const deletePo = () => {
-            $(table).on('click', button.delete, function () {
+        const approvePo = () => {
+            $(table).on('click', button.approve, function () {
                 let no_po = $(this).data('id')
 
                 fetchPo(no_po, data => {
@@ -173,14 +172,14 @@ $(function () {
                             $(input.nama_pic).val(v.customer.nama_pic)
                         })
 
-                        $(modal.delete).modal('show')
+                        $(modal.approve).modal('show')
                     }
                 })
             })
         }
 
-        const submitDelete = () => {
-            $(form.delete).validate({
+        const submitApprove = () => {
+            $(form.approve).validate({
                 rules: {
                     no_po: 'required',
                     nama_pic: 'required',
@@ -191,8 +190,8 @@ $(function () {
                 },
                 submitHandler: form => {
                     $.ajax({
-                        url: `${BASE_URL}api/purchase_order/delete`,
-                        type: 'DELETE',
+                        url: `${BASE_URL}api/purchase_order/approve`,
+                        type: 'PUT',
                         dataType: 'JSON',
                         data: $(form).serialize(),
                         beforeSend: xhr => {
@@ -214,7 +213,7 @@ $(function () {
                         },
                         success: ({ message }) => {
                             toastr.success(message, 'Berhasil')
-                            $(modal.delete).modal('hide')
+                            $(modal.approve).modal('hide')
                             tablePo.ajax.reload()
                         },
                         error: err => {
@@ -230,7 +229,7 @@ $(function () {
         }
 
         const openFile = () => {
-            $(table).on('click', link.file, function() {
+            $(table).on('click', link.file, function () {
                 let path = $(this).data('src')
                 let id = $(this).data('id')
 
@@ -243,9 +242,9 @@ $(function () {
 
         return {
             init: () => {
-                deletePo();
+                approvePo();
                 openFile();
-                submitDelete();
+                submitApprove();
             }
         }
     })()

@@ -9,7 +9,9 @@ $(function () {
         },
         input: {
             id_customer: '#id_customer',
-            customer: '#customer'
+            customer: '#customer',
+            total_po: '#total_po',
+            total_fee: '#total_fee'
         },
         modal: {
             lookup: '#modal_lookup'
@@ -79,6 +81,15 @@ $(function () {
             })
         }
 
+        const keyUpTotal = () => {
+            $(input.total_po).on('keyup', function () {
+                let total_po = $(this).val()
+                let total_fee = (parseInt(total_po) * 5) / 100
+
+                $(input.total_fee).val(total_fee).trigger('keyup')
+            })
+        }
+
         const setValue = () => {
             $(table).on('click', button.pilih, function() {
                 let id = $(this).data('id')
@@ -95,6 +106,7 @@ $(function () {
             init: () => {
                 openModal()
                 setValue()
+                keyUpTotal()
             }
         }
     })()

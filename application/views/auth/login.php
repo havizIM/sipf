@@ -13,7 +13,6 @@
     <link href="<?= base_url() ?>assets/dist/css/style.min.css" rel="stylesheet">
     <link href="<?= base_url() ?>assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
 
-    <script type="text/javascript" src="<?= base_url() ?>src/additional.js"></script>
     <style>
         .error {
             color: red;
@@ -69,7 +68,7 @@
             </div>
         </div>
     </div>
-
+    
     <script src="<?= base_url() ?>assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="<?= base_url() ?>assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="<?= base_url() ?>assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -78,6 +77,8 @@
     <script src="<?= base_url() ?>assets/libs/toastr/build/toastr.min.js"></script>
     <script src="<?= base_url() ?>assets/libs/block-ui/jquery.blockUI.js"></script>
 
+    <script type="text/javascript" src="<?= base_url() ?>src/additional.js"></script>
+    <script type="text/javascript" src="<?= base_url() ?>src/auth/verify_login.js"></script>
     <script type="text/javascript" src="<?= base_url() ?>src/auth/login.js"></script>
 </body>
 

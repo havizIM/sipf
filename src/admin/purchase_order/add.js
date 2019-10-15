@@ -3,7 +3,7 @@ console.log('Add PO is running...')
 $(function () {
     const DOM = {
         form: '#form_add',
-        card: '#card_add'
+        card: '#card_add',
     }
 
     toastr.options = {
@@ -24,8 +24,8 @@ $(function () {
         "hideMethod": "slideUp"
     }
 
-    const addPoController = (() => {
-        const {form, card} = DOM
+    const addPoController = (() => {$()
+        const {form, card } = DOM
 
         const submitAdd = () => {
             $(form).validate({

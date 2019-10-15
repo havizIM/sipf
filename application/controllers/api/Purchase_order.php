@@ -20,6 +20,7 @@ class Purchase_order extends CI_Controller {
         $this->auth     = AUTHORIZATION::validateToken($this->token);
 
         $this->load->model('PurchaseOrderModel');
+        $this->load->model('CustomerModel');
     }
 
     public function index_get()
@@ -76,28 +77,28 @@ class Purchase_order extends CI_Controller {
 
             $config = array(
                 array(
-                    'field' => 'username',
-                    'label' => 'Username',
-                    'rules' => 'required|trim|is_unique[user.username]'
+                    'field' => 'no_po',
+                    'label' => 'No PO',
+                    'rules' => 'required|trim|is_unique[purchase_order.no_po]'
                 ),
                 array(
-                    'field' => 'nama_lengkap',
-                    'label' => 'Nama Lengkap',
+                    'field' => 'id_customer',
+                    'label' => 'Customer',
+                    'rules' => 'required|trim|callback_cek_customer'
+                ),
+                array(
+                    'field' => 'total_po',
+                    'label' => 'Total PO',
                     'rules' => 'required|trim'
                 ),
                 array(
-                    'field' => 'email',
-                    'label' => 'Email',
-                    'rules' => 'required|trim|is_unique[user.email]|valid_email'
-                ),
-                array(
-                    'field' => 'telepon',
-                    'label' => 'Telepon',
+                    'field' => 'total_fee',
+                    'label' => 'Total Fee',
                     'rules' => 'required|trim'
                 ),
                 array(
-                    'field' => 'level',
-                    'label' => 'Level',
+                    'field' => 'marketing',
+                    'label' => 'Marketing',
                     'rules' => 'required|trim'
                 )
             );
@@ -108,37 +109,35 @@ class Purchase_order extends CI_Controller {
             if(!$this->form_validation->run()){
                 $this->response(['status' => false, 'error' => $this->form_validation->error_array()], 400);
             } else {
-                $id_user = $this->KodeModel->buat_kode('user', 'USR-', 'id_user', 7);
 
                 $data = array(
-                    'id_user' => $id_user,
-                    'username' => $this->post('username'),
-                    'password' => $this->post('username'),
-                    'nama_lengkap' => $this->post('nama_lengkap'),
-                    'email' => $this->post('email'),
-                    'telepon' => $this->post('telepon'),
-                    'level' => $this->post('level'),
-                    'aktif' => 'Y'
+                    'no_po' => $this->post('no_po'),
+                    'id_customer' => $this->post('id_customer'),
+                    'id_user' => $this->auth->id_user,
+                    'file_po' => $this->upload_file('file_po', $this->post('no_po')),
+                    'total_po' => $this->post('total_po'),
+                    'total_fee' => $this->post('total_fee'),
+                    'marketing' => $this->post('marketing')
                 );
 
                 $log = array(
                     'id_user' => $this->auth->id_user,
-                    'referensi' => 'User',
-                    'deskripsi' => 'Menambahkan user baru'
+                    'referensi' => 'PO',
+                    'deskripsi' => 'Menambahkan PO baru'
                 );
 
                 $add = $this->PurchaseOrderModel->add($data, $log);
 
                 if(!$add){
-                    $this->response(['status' => false, 'message' => 'Gagal menambahkan user'], 500);
+                    $this->response(['status' => false, 'message' => 'Gagal menambahkan purchase order'], 500);
                 } else {
-                    $this->response(['status' => true, 'message' => 'Berhasil menambahkan user'], 200);
+                    $this->response(['status' => true, 'message' => 'Berhasil menambahkan purchase order'], 200);
                 }
             }
         } 
     }
 
-    public function edit_put()
+    public function edit_post()
     {
         if(!$this->auth){
             $this->response(['status' => false, 'error' => 'Invalid Token'], 400);
@@ -147,40 +146,86 @@ class Purchase_order extends CI_Controller {
 
             $config = array(
                 array(
-                    'field' => 'id_user',
-                    'label' => 'ID User',
-                    'rules' => 'required|trim|callback_cek_user'
+                    'field' => 'no_po',
+                    'label' => 'No PO',
+                    'rules' => 'required|trim|callback_cek_po'
                 ),
                 array(
-                    'field' => 'username',
-                    'label' => 'Username',
+                    'field' => 'id_customer',
+                    'label' => 'Customer',
+                    'rules' => 'required|trim|callback_cek_customer'
+                ),
+                array(
+                    'field' => 'total_po',
+                    'label' => 'Total PO',
                     'rules' => 'required|trim'
                 ),
                 array(
-                    'field' => 'nama_lengkap',
-                    'label' => 'Nama Lengkap',
+                    'field' => 'total_fee',
+                    'label' => 'Total Fee',
                     'rules' => 'required|trim'
                 ),
                 array(
-                    'field' => 'email',
-                    'label' => 'Email',
-                    'rules' => 'required|trim|valid_email'
-                ),
-                array(
-                    'field' => 'telepon',
-                    'label' => 'Telepon',
+                    'field' => 'marketing',
+                    'label' => 'Marketing',
                     'rules' => 'required|trim'
-                ),
+                )
+            );
+
+            $this->form_validation->set_data($this->post());
+            $this->form_validation->set_rules($config);
+
+            if(!$this->form_validation->run()){
+                $this->response(['status' => false, 'error' => $this->form_validation->error_array()], 400);
+            } else {
+                $where  = array(
+                    'no_po'   => $this->post('no_po') 
+                );
+
+                $data = array(
+                    'id_customer' => $this->post('id_customer'),
+                    'id_user' => $this->auth->id_user,
+                    'total_po' => $this->post('total_po'),
+                    'total_fee' => $this->post('total_fee'),
+                    'marketing' => $this->post('marketing')
+                );
+
+                $file = $this->upload_file('file_po', $this->post('no_po'));
+
+                if($file != null){
+                    $data['file_po'] = $file;
+                }
+
+                $log = array(
+                    'id_user' => $this->auth->id_user,
+                    'referensi' => 'PO',
+                    'deskripsi' => 'Mengedit purchase order'
+                );
+
+                $edit = $this->PurchaseOrderModel->edit($where, $data, $log);
+
+                if(!$edit){
+                    $this->response(['status' => false, 'message' => 'Gagal mengedit purchase order'], 500);
+                } else {
+                    $this->response(['status' => true, 'message' => 'Berhasil mengedit purchase order'], 200);
+                }
+            }
+        } 
+    }
+
+    public function approve_put()
+    {
+        if(!$this->auth){
+            $this->response(['status' => false, 'error' => 'Invalid Token'], 400);
+        } else {
+            $otorisasi  = $this->auth;
+
+            $config = array(
                 array(
-                    'field' => 'level',
-                    'label' => 'Level',
-                    'rules' => 'required|trim'
-                ),
-                array(
-                    'field' => 'aktif',
-                    'label' => 'Status',
-                    'rules' => 'required|trim'
-                ),
+                    'field' => 'no_po',
+                    'label' => 'No PO',
+                    'rules' => 'required|trim|callback_cek_po'
+                )
             );
 
             $this->form_validation->set_data($this->put());
@@ -190,30 +235,25 @@ class Purchase_order extends CI_Controller {
                 $this->response(['status' => false, 'error' => $this->form_validation->error_array()], 400);
             } else {
                 $where  = array(
-                    'id_user'   => $this->put('id_user') 
+                    'no_po'   => $this->put('no_po') 
                 );
 
                 $data = array(
-                    'username' => $this->put('username'),
-                    'nama_lengkap' => $this->put('nama_lengkap'),
-                    'email' => $this->put('email'),
-                    'telepon' => $this->put('telepon'),
-                    'level' => $this->put('level'),
-                    'aktif' => $this->put('aktif')
+                    'approve' => 'Y'
                 );
 
                 $log = array(
                     'id_user' => $this->auth->id_user,
-                    'referensi' => 'User',
-                    'deskripsi' => 'Mengedit user'
+                    'referensi' => 'PO',
+                    'deskripsi' => 'Approve purchase order'
                 );
 
                 $edit = $this->PurchaseOrderModel->edit($where, $data, $log);
 
                 if(!$edit){
-                    $this->response(['status' => false, 'message' => 'Gagal mengedit user'], 500);
+                    $this->response(['status' => false, 'message' => 'Gagal approve purchase order'], 500);
                 } else {
-                    $this->response(['status' => true, 'message' => 'Berhasil mengedit user'], 200);
+                    $this->response(['status' => true, 'message' => 'Berhasil approve purchase order'], 200);
                 }
             }
         } 
@@ -228,9 +268,9 @@ class Purchase_order extends CI_Controller {
 
             $config = array(
                 array(
-                    'field' => 'id_user',
-                    'label' => 'ID User',
-                    'rules' => 'required|trim|callback_cek_user'
+                    'field' => 'no_po',
+                    'label' => 'No PO',
+                    'rules' => 'required|trim|callback_cek_po'
                 )
             );
 
@@ -241,38 +281,78 @@ class Purchase_order extends CI_Controller {
                 $this->response(['status' => false, 'error' => $this->form_validation->error_array()], 400);
             } else {
                 $where  = array(
-                    'id_user'   => $this->delete('id_user') 
+                    'no_po'   => $this->delete('no_po') 
                 );
 
                 $log = array(
                     'id_user' => $this->auth->id_user,
-                    'referensi' => 'User',
-                    'deskripsi' => 'Menghapus user'
+                    'referensi' => 'PO',
+                    'deskripsi' => 'Menghapus purchase order'
                 );
 
                 $delete = $this->PurchaseOrderModel->delete($where, $log);
 
                 if(!$delete){
-                    $this->response(['status' => false, 'message' => 'Gagal menghapus user'], 500);
+                    $this->response(['status' => false, 'message' => 'Gagal menghapus purchase order'], 500);
                 } else {
-                    $this->response(['status' => true, 'message' => 'Berhasil menghapus user'], 200);
+                    $this->response(['status' => true, 'message' => 'Berhasil menghapus purchase order'], 200);
                 }
             }
         } 
     }
 
-    function cek_user($id){
+    function cek_po($id){
          $where = array(
-            'id_user' => $id
+            'no_po' => $id
         );
 
         $cek   = $this->PurchaseOrderModel->fetch($where)->num_rows();
 
         if ($cek == 0){
-            $this->form_validation->set_message('cek_user', 'ID User tidak ditemukan');
+            $this->form_validation->set_message('cek_po', 'No PO tidak ditemukan');
             return FALSE;
         } else {
             return TRUE;
+        }
+    }
+
+    function cek_customer($id){
+         $where = array(
+            'id_customer' => $id
+        );
+
+        $cek   = $this->CustomerModel->fetch($where)->num_rows();
+
+        if ($cek == 0){
+            $this->form_validation->set_message('cek_customer', 'ID Customer tidak ditemukan');
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+
+    function upload_file($name, $id)
+    {
+        if(isset($_FILES[$name]) && $_FILES[$name]['name'] != ""){
+
+        $config['upload_path']   = './doc/po/';
+        $config['allowed_types'] = 'jpg|jpeg|png|pdf|doc|docx';
+        $config['overwrite']     = TRUE;
+        $config['max_size']      = '3048';
+        $config['remove_space']  = TRUE;
+        $config['encrypt_name'] = TRUE;
+
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+
+        if(!$this->upload->do_upload($name)){
+            return null;
+        } else {
+            $file = $this->upload->data();
+            return $file['file_name'];
+        }
+        } else {
+            return null;
         }
     }
 

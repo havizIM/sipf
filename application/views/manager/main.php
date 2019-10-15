@@ -4,20 +4,15 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!-- Favicon icon -->
+    
     <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url() ?>assets/images/favicon.png">
     <title>Manager | UTI</title>
-    <!-- Custom CSS -->
     <link href="<?= base_url() ?>assets/dist/css/style.css" rel="stylesheet">
     <link href="<?= base_url() ?>assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
     <link href="<?= base_url() ?>assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
-
-    <script src="<?= base_url() ?>src/additional.js"></script>
-
     <style>
         .error {
             color: red;
@@ -55,103 +50,6 @@
                 <div class="navbar-collapse collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav float-left mr-auto">
                         <li class="nav-item d-none d-md-block"><a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
-                        <li class="nav-item dropdown mega-dropdown"><a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="d-none d-md-block">Mega <i class="fa fa-angle-down"></i></span>
-                             <span class="d-block d-md-none"><i class="mdi mdi-dialpad font-24"></i></span>
-                            </a>
-                            <div class="dropdown-menu animated bounceInDown">
-                                <div class="mega-dropdown-menu row">
-                                    <div class="col-lg-3 col-xlg-2 m-b-30">
-                                        <h4 class="m-b-20">CAROUSEL</h4>
-                                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                                            <div class="carousel-inner" role="listbox">
-                                                <div class="carousel-item active">
-                                                    <div class="container p-0"> <img class="d-block img-fluid" src="<?= base_url() ?>assets/images/big/img1.jpg" alt="First slide"></div>
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <div class="container p-0"><img class="d-block img-fluid" src="<?= base_url() ?>assets/images/big/img2.jpg" alt="Second slide"></div>
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <div class="container p-0"><img class="d-block img-fluid" src="<?= base_url() ?>assets/images/big/img3.jpg" alt="Third slide"></div>
-                                                </div>
-                                            </div>
-                                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="sr-only">Previous</span> </a>
-                                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span> </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 m-b-30">
-                                        <h4 class="m-b-20">ACCORDION</h4>
-                                        <div id="accordion">
-                                            <div class="card m-b-5">
-                                                <div class="card-header" id="headingOne">
-                                                    <h5 class="mb-0">
-                                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                  Collapsible Group Item #1
-                                                </button>
-                                              </h5>
-                                                </div>
-                                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                                                    <div class="card-body">
-                                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card m-b-5">
-                                                <div class="card-header" id="headingTwo">
-                                                    <h5 class="mb-0">
-                                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                  Collapsible Group Item #2
-                                                </button>
-                                              </h5>
-                                                </div>
-                                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                                                    <div class="card-body">
-                                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card m-b-5">
-                                                <div class="card-header" id="headingThree">
-                                                    <h5 class="mb-0">
-                                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                  Collapsible Group Item #3
-                                                </button>
-                                              </h5>
-                                                </div>
-                                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                                                    <div class="card-body">
-                                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3  m-b-30">
-                                        <h4 class="m-b-20">CONTACT US</h4>
-                                        <form>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleInputname1" placeholder="Enter Name"> </div>
-                                            <div class="form-group">
-                                                <input type="email" class="form-control" placeholder="Enter email"> </div>
-                                            <div class="form-group">
-                                                <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Message"></textarea>
-                                            </div>
-                                            <button type="submit" class="btn btn-info">Submit</button>
-                                        </form>
-                                    </div>
-                                    <div class="col-lg-3 col-xlg-4 m-b-30">
-                                        <h4 class="m-b-20">List style</h4>
-                                        <ul class="list-style-none">
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> You can give link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> Give link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> Another Give link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> Forth link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> Another fifth link</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
                     </ul>
                     <ul class="navbar-nav float-right">
                         <li class="nav-item dropdown">
@@ -161,15 +59,15 @@
                                 <div class="d-flex no-block align-items-center p-15 bg-primary text-white m-b-10">
                                     <div class=""><img src="<?= base_url() ?>assets/images/users/1.jpg" alt="user" class="img-circle" width="60"></div>
                                     <div class="m-l-10">
-                                        <h4 class="m-b-0">Steave Jobs</h4>
-                                        <p class=" m-b-0">varun@gmail.com</p>
+                                        <h4 class="m-b-0" id="header_name">...</h4>
+                                        <p class=" m-b-0" id="header_email">...</p>
                                     </div>
                                 </div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
+                                <a class="dropdown-item access_profile" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> Edit Profile</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
+                                <a class="dropdown-item access_password" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i> Ganti Password</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
+                                <a class="dropdown-item access_logout" href="javascript:void(0)"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
                              </div>
                         </li>
                     </ul>
@@ -196,7 +94,78 @@
         <div class="page-wrapper" id="page_content">
             <!-- LOAD PAGE CONTENT -->
         </div>
+
+        <form id="form_password">
+            <div id="modal_password" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="vcenter" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="vcenter">Ganti Passoword</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="">Passoword Lama</label>
+                                <input type="password" class="form-control" id="old_password" name="old_password">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Password Baru</label>
+                                <input type="password" class="form-control" id="new_password" name="new_password">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Ulangi Password</label>
+                                <input type="password" class="form-control" id="retype_password" name="retype_password">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Tidak</button>
+                            <button type="submit" class="btn btn-success waves-effect">Ya</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+        </form>
+
+        <form id="form_profile">
+            <div id="modal_profile" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="vcenter" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="vcenter">Edit Profile</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="">Username</label>
+                                <input type="text" class="form-control" id="profile_username" name="username" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Nama Lengkap</label>
+                                <input type="text" class="form-control" id="profile_nama_lengkap" name="nama_lengkap">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Email</label>
+                                <input type="email" class="form-control" id="profile_email" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Telepon</label>
+                                <input type="telepon" class="form-control" id="profile_telepon" name="telepon">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-success waves-effect">Simpan</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+        </form>
     </div>
+
 
     <script src="<?= base_url() ?>assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
@@ -219,7 +188,9 @@
     <script src="<?= base_url() ?>assets/extra-libs/DataTables/datatables.min.js"></script>
     <script src="<?= base_url() ?>assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="<?= base_url() ?>assets/libs/toastr/build/toastr.min.js"></script>
-
+    
+    <script src="<?= base_url() ?>src/additional.js"></script>
+    <script src="<?= base_url() ?>src/manager/verify_user.js"></script>
     <script src="<?= base_url() ?>src/manager/main.js"></script>
 </body>
 
