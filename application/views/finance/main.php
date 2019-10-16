@@ -116,6 +116,14 @@
                                 <label for="">Ulangi Password</label>
                                 <input type="password" class="form-control" id="retype_password" name="retype_password">
                             </div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="show_pass">
+                                        <label class="custom-control-label" for="show_pass">Show Password</label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Tidak</button>

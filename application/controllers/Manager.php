@@ -29,9 +29,9 @@ class Manager extends CI_Controller {
 		$this->load->view('manager/payment/data');
     }
     
-    public function report_payment()
+    public function report()
 	{
-		$this->load->view('manager/report/payment');
+		$this->load->view('manager/report/data');
 	}
 
 	public function log()

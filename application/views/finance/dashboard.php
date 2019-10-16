@@ -13,7 +13,55 @@
     </div>
 </div>
 
-<br><br><br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <div class="card bg-info">
+                <div class="card-body">
+                    <div class="d-flex no-block align-items-center">
+                        <div class="text-white">
+                            <h2><i class="fa fa-spin fa-spinner"></i></h2>
+                            <h6>Purchase Order</h6>
+                        </div>
+                        <div class="ml-auto">
+                            <span class="text-white display-6"><i class="ti-clipboard"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="card bg-cyan">
+                <div class="card-body">
+                    <div class="d-flex no-block align-items-center">
+                        <div class="text-white">
+                            <h2><i class="fa fa-spin fa-spinner"></i></h2>
+                            <h6>Payment</h6>
+                        </div>
+                        <div class="ml-auto">
+                            <span class="text-white display-6"><i class="fas fa-dollar-sign"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <footer class="footer text-center">
     Made with <i class="fa fa-heart text-danger"></i> by Siti Chadijah.

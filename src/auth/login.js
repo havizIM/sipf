@@ -7,6 +7,10 @@ $(function(){
         container: '#container',
         form: {
             login: '#form_login'
+        },
+        input: {
+            show_pass: '#show_pass',
+            password: '#password'
         }
     }
 
@@ -29,7 +33,7 @@ $(function(){
     }
 
     const loginController = (() => {
-        const {loader, form, container} = DOM
+        const {loader, form, container, input} = DOM
 
         const submitLogin = () => {
             $(form.login).validate({
@@ -83,6 +87,14 @@ $(function(){
 
         const additionalListener = () => {
             $(loader).fadeOut()
+
+            $(input.show_pass).click(function () {
+                if ($(this).is(':checked')) {
+                    $(input.password).attr('type', 'text');
+                } else {
+                    $(input.password).attr('type', 'password');
+                };
+            });
         }
 
         return {

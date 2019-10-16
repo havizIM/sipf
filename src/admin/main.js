@@ -14,6 +14,12 @@ $(function () {
         form: {
             profile: '#form_profile',
             password: '#form_password'
+        },
+        input: {
+            show_pass: '#show_pass',
+            old_password: '#old_password',
+            new_password: '#new_password',
+            retype_password: '#retype_password'
         }
     }
 
@@ -37,7 +43,7 @@ $(function () {
 
     const mainController = ((User) => {
 
-        const {page_content, modal, access, form} = DOM
+        const {page_content, modal, access, form, input} = DOM
 
         const loadContent = path => {
             $.ajax({
@@ -60,6 +66,7 @@ $(function () {
                 },
                 success: function (response) {
                     $(page_content).html(response)
+                    $('.modal-backdrop').remove()
                     $.unblockUI()
                 },
                 error: function () {
@@ -245,6 +252,20 @@ $(function () {
             })
         }
 
+        const showPass = () => {
+            $(input.show_pass).click(function () {
+                if ($(this).is(':checked')) {
+                    $(input.old_password).attr('type', 'text');
+                    $(input.new_password).attr('type', 'text');
+                    $(input.retype_password).attr('type', 'text');
+                } else {
+                    $(input.old_password).attr('type', 'password');
+                    $(input.new_password).attr('type', 'password');
+                    $(input.retype_password).attr('type', 'password');
+                };
+            });
+        }
+
         return {
             init: () => {
                 setRoute()
@@ -254,6 +275,8 @@ $(function () {
 
                 submitPassword()
                 submitProfile()
+
+                showPass()
 
                 logout()
             }

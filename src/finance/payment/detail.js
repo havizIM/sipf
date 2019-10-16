@@ -72,8 +72,8 @@ $(function(){
                             <td>${no++}</td>
                             <td>${v.no_po}</td>
                             <td>${v.tgl_input_po}</td>
-                            <td class="text-right">Rp. ${v.total_po}</td>
-                            <td class="text-right">Rp. ${v.total_fee}</td>
+                            <td class="text-right">Rp. ${parseInt(v.total_po).toLocaleString(['ban', 'id'])}</td>
+                            <td class="text-right">Rp. ${parseInt(v.total_fee).toLocaleString(['ban', 'id'])}</td>
                         </tr>
                     `
                 })

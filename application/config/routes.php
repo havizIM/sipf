@@ -60,8 +60,6 @@ $route['finance/payment/add'] = 'finance/add_payment';
 $route['finance/payment/edit/(:any)'] = 'finance/edit_payment/$1';
 $route['finance/payment/(:any)'] = 'finance/detail_payment/$1';
 
-$route['manager/report/payment'] = 'manager/report_payment';
-
 
 /*
 | -------------------------------------------------------------------------

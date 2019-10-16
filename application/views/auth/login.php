@@ -51,8 +51,8 @@
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1">Show Password</label>
+                                            <input type="checkbox" class="custom-control-input" id="show_pass">
+                                            <label class="custom-control-label" for="show_pass">Show Password</label>
                                         </div>
                                     </div>
                                 </div>
