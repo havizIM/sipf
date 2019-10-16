@@ -83,6 +83,35 @@ class Payment extends CI_Controller {
         }
     }
 
+    public function statistic_get()
+    {
+        if(!$this->auth){
+            $this->response(['status' => false, 'error' => 'Invalid Token'], 400);
+        } else {
+            
+            $tahun = date('Y');
+
+            $jml_payment = array("0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0");
+            $total_payment = array("0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0");
+
+            $payment   = $this->PaymentModel->statistic($tahun)->result();
+
+            foreach($payment as $key){
+                $index = $key->bulan - 1;
+
+                $jml_payment[$index]   = $key->jml_payment;
+                $total_payment[$index] = $key->total_payment;
+            }
+
+            $data = array(
+                'jml_payment' => $jml_payment,
+                'total_payment' => $total_payment
+            );
+
+            $this->response(['status' => true, 'message' => 'Berhasil menampilkan statistic payment', 'data' => $data], 200);
+        }
+    }
+
     public function add_post()
     {
         if(!$this->auth){

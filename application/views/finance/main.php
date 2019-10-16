@@ -200,6 +200,7 @@
     <script src="<?= base_url() ?>assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="<?= base_url() ?>assets/libs/toastr/build/toastr.min.js"></script>
     <script src="<?= base_url() ?>assets/dist/js/pages/samplepages/jquery.PrintArea.js"></script>
+    <script src="<?= base_url() ?>assets/libs/chart.js/dist/Chart.min.js"></script>
     
     <script src="<?= base_url() ?>src/additional.js"></script>
     <script src="<?= base_url() ?>src/finance/verify_user.js"></script>

@@ -70,6 +70,18 @@ class PurchaseOrderModel extends CI_Model {
         return true;
       }
     }
+
+    function statistic($tahun)
+    {
+      $this->db->select("YEAR(tgl_input_po) as tahun, MONTH(tgl_input_po) as bulan, COUNT('no_po') as jml_po, SUM(total_fee) as total_fee");
+
+      $this->db->from("purchase_order");
+      $this->db->where("YEAR(tgl_input_po)", $tahun);
+      $this->db->where('approve', 'Y');
+
+      $this->db->group_by("MONTH(tgl_input_po)");
+      return $this->db->get();
+    }
     
 }
 

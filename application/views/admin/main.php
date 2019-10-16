@@ -199,6 +199,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.2/js/responsive.bootstrap4.min.js"></script>
     <script src="<?= base_url() ?>assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="<?= base_url() ?>assets/libs/toastr/build/toastr.min.js"></script>
+    <script src="<?= base_url() ?>assets/libs/chart.js/dist/Chart.min.js"></script>
     
     <script src="<?= base_url() ?>src/additional.js"></script>
     <script src="<?= base_url() ?>src/admin/verify_user.js"></script>

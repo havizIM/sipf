@@ -75,6 +75,17 @@ class PaymentModel extends CI_Model {
         return true;
       }
     }
+
+    function statistic($tahun)
+    {
+      $this->db->select("YEAR(tgl_payment) as tahun, MONTH(tgl_payment) as bulan, COUNT('no_payment') as jml_payment, SUM(total_bayar) as total_payment");
+
+      $this->db->from("payment");
+      $this->db->where("YEAR(tgl_payment)", $tahun);
+
+      $this->db->group_by("MONTH(tgl_payment)");
+      return $this->db->get();
+    }
     
 }
 

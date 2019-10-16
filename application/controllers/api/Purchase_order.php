@@ -81,6 +81,35 @@ class Purchase_order extends CI_Controller {
         }
     }
 
+    public function statistic_get()
+    {
+        if(!$this->auth){
+            $this->response(['status' => false, 'error' => 'Invalid Token'], 400);
+        } else {
+            
+            $tahun = date('Y');
+
+            $jml_po = array("0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0");
+            $total_fee = array("0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0");
+
+            $po   = $this->PurchaseOrderModel->statistic($tahun)->result();
+
+            foreach($po as $key){
+                $index = $key->bulan - 1;
+
+                $jml_po[$index]   = $key->jml_po;
+                $total_fee[$index] = $key->total_fee;
+            }
+
+            $data = array(
+                'jumlah_po' => $jml_po,
+                'total_fee' => $total_fee
+            );
+
+            $this->response(['status' => true, 'message' => 'Berhasil menampilkan statistic fee', 'data' => $data], 200);
+        }
+    }
+
     public function add_post()
     {
         if(!$this->auth){

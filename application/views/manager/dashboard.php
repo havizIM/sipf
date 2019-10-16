@@ -21,7 +21,7 @@
                 <div class="card-body">
                     <div class="d-flex no-block align-items-center">
                         <div class="text-white">
-                            <h2><i class="fa fa-spin fa-spinner"></i></h2>
+                            <h2 id="count_user"><i class="fa fa-spin fa-spinner"></i></h2>
                             <h6>User</h6>
                         </div>
                         <div class="ml-auto">
@@ -36,7 +36,7 @@
                 <div class="card-body">
                     <div class="d-flex no-block align-items-center">
                         <div class="text-white">
-                            <h2><i class="fa fa-spin fa-spinner"></i></h2>
+                            <h2 id="count_po"><i class="fa fa-spin fa-spinner"></i></h2>
                             <h6>Purchase Order</h6>
                         </div>
                         <div class="ml-auto">
@@ -49,14 +49,22 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-
+                    <h3 class="card-title">Purchase Order</h3>
+                    <canvas id="po_doughnut" height="200"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">User</h3>
+                    <canvas id="user_pie" height="200"></canvas>
                 </div>
             </div>
         </div>
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-
+                    <h3 class="card-title">Fee Growth</h3>
+                    <canvas id="po_line" height="250"></canvas>
                 </div>
             </div>
         </div>
@@ -68,3 +76,7 @@
 <footer class="footer text-center">
     Made with <i class="fa fa-heart text-danger"></i> by Siti Chadijah.
 </footer>
+
+<script type="text/javascript">
+    $.getScript(`${BASE_URL}src/manager/dashboard.js`)
+</script>
