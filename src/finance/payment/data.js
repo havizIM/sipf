@@ -90,7 +90,7 @@ $(function () {
             },
             {
                 data: null, render: (data, type, row) => {
-                    return `Rp. ${row.total_bayar}`
+                    return `Rp. ${parseInt(row.total_bayar).toLocaleString(['ban', 'id'])}`
                 }
             },
             {

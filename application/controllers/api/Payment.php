@@ -190,7 +190,7 @@ class Payment extends CI_Controller {
         } 
     }
 
-    public function edit_post()
+    public function edit_put()
     {
         if(!$this->auth){
             $this->response(['status' => false, 'error' => 'Invalid Token'], 400);
@@ -199,9 +199,9 @@ class Payment extends CI_Controller {
 
             $config = array(
                 array(
-                    'field' => 'no_po',
-                    'label' => 'No PO',
-                    'rules' => 'required|trim|callback_cek_po'
+                    'field' => 'no_payment',
+                    'label' => 'No Payment',
+                    'rules' => 'required|trim|callback_cek_payment'
                 ),
                 array(
                     'field' => 'id_customer',
@@ -209,58 +209,67 @@ class Payment extends CI_Controller {
                     'rules' => 'required|trim|callback_cek_customer'
                 ),
                 array(
-                    'field' => 'total_po',
-                    'label' => 'Total PO',
+                    'field' => 'tgl_payment',
+                    'label' => 'Tgl Payment',
                     'rules' => 'required|trim'
                 ),
                 array(
-                    'field' => 'total_fee',
-                    'label' => 'Total Fee',
+                    'field' => 'total_bayar',
+                    'label' => 'Total Bayar',
                     'rules' => 'required|trim'
                 ),
                 array(
-                    'field' => 'marketing',
-                    'label' => 'Marketing',
+                    'field' => 'no_po[]',
+                    'label' => 'No Purchase Order',
+                    'rules' => 'required|trim'
+                ),
+                array(
+                    'field' => 'jml_dibayar[]',
+                    'label' => 'Jumlah Dibayar',
                     'rules' => 'required|trim'
                 )
             );
 
-            $this->form_validation->set_data($this->post());
+            $this->form_validation->set_data($this->put());
             $this->form_validation->set_rules($config);
 
             if(!$this->form_validation->run()){
                 $this->response(['status' => false, 'error' => $this->form_validation->error_array()], 400);
             } else {
-                $where  = array(
-                    'no_po'   => $this->post('no_po') 
+                $put = $this->put();
+
+                $where = array(
+                    'no_payment' => $this->put('no_payment')
                 );
 
                 $data = array(
-                    'id_customer' => $this->post('id_customer'),
+                    'id_customer' => $this->put('id_customer'),
                     'id_user' => $this->auth->id_user,
-                    'total_po' => $this->post('total_po'),
-                    'total_fee' => $this->post('total_fee'),
-                    'marketing' => $this->post('marketing')
+                    'tgl_payment' => $this->put('tgl_payment'),
+                    'total_bayar' => $this->put('total_bayar')
                 );
 
-                $file = $this->upload_file('file_po', $this->post('no_po'));
-
-                if($file != null){
-                    $data['file_po'] = $file;
+                $detail  = array();
+                foreach($put['no_po'] as $key => $val){
+                    $detail[] = array(
+                        'no_payment' => $this->put('no_payment'),
+                        'no_po' => $put['no_po'][$key],
+                        'jml_dibayar' => $put['jml_dibayar'][$key]
+                    );
                 }
 
                 $log = array(
                     'id_user' => $this->auth->id_user,
-                    'referensi' => 'PO',
-                    'deskripsi' => 'Mengedit purchase order'
+                    'referensi' => 'Payment',
+                    'deskripsi' => 'Mengedit Payment baru'
                 );
 
-                $edit = $this->PaymentModel->edit($where, $data, $log);
+                $update = $this->PaymentModel->edit($where, $data, $detail, $log);
 
-                if(!$edit){
-                    $this->response(['status' => false, 'message' => 'Gagal mengedit purchase order'], 500);
+                if(!$update){
+                    $this->response(['status' => false, 'message' => 'Gagal mengedit payment'], 500);
                 } else {
-                    $this->response(['status' => true, 'message' => 'Berhasil mengedit purchase order'], 200);
+                    $this->response(['status' => true, 'message' => 'Berhasil mengedit payment'], 200);
                 }
             }
         } 

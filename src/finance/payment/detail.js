@@ -102,7 +102,7 @@ $(function(){
                                     </td>
                                     <td>
                                         <div class="pull-right mt-4 text-right">
-                                            <h3><b>Grand Total Fee:</b> RP. ${data.total_bayar}</h3>
+                                            <h3><b>Grand Total Fee:</b> Rp. ${parseInt(data.total_bayar).toLocaleString(['ban', 'id'])}</h3>
                                         </div>
                                     </td>
                                 </tr>

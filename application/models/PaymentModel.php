@@ -44,10 +44,16 @@ class PaymentModel extends CI_Model {
       }
     }
 
-    function edit($where, $data, $log)
+    function edit($where, $data, $detail, $log)
     {
       $this->db->trans_start();
       $this->db->where($where)->update('payment', $data);
+
+      if(!empty($detail)){
+          $this->db->where($where)->delete('payment_detail');
+          $this->db->insert_batch('payment_detail', $detail);
+      }
+      
       $this->db->insert('user_log', $log);
       $this->db->trans_complete();
 

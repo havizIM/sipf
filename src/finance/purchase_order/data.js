@@ -81,10 +81,14 @@ $(function () {
                 }
             },
             {
-                data: "total_po"
+                data: null, render: (data, type, row) => {
+                    return `Rp. ${parseInt(row.total_po).toLocaleString(['ban', 'id'])}`
+                }
             },
             {
-                data: "total_fee"
+                data: null, render: (data, type, row) => {
+                    return `Rp. ${parseInt(row.total_fee).toLocaleString(['ban', 'id'])}`
+                }
             },
             {
                 data: "marketing"

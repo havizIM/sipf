@@ -161,6 +161,5 @@
 </footer>
 
 <script type="text/javascript">
-    $.getScript(`${BASE_URL}src/finance/payment/lookup.js`)
     $.getScript(`${BASE_URL}src/finance/payment/edit.js`)
 </script>
