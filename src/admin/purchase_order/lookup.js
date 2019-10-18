@@ -86,7 +86,7 @@ $(function () {
         const keyUpTotal = () => {
             $(input.total_po).on('keyup', function () {
                 let total_po = $(this).val()
-                let total_fee = (parseInt(total_po) * 5) / 100
+                let total_fee = (parseInt(total_po) * 2) / 100
 
                 $(input.total_fee).val(total_fee).trigger('keyup')
             })

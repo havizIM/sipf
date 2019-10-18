@@ -36,14 +36,10 @@
                 <div class="navbar-header">
                     <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
                     <a class="navbar-brand" href="#/dashboard">
-                        <b class="logo-icon">
-                            <img src="<?= base_url() ?>assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
-                            <img src="<?= base_url() ?>assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
+                        <b class="logo-icon ml-4">
+                            <img src="<?= base_url() ?>assets/sipf_image/logo_2.png" alt="homepage" class="dark-logo" />
+                            <img src="<?= base_url() ?>assets/sipf_image/logo_2.png" alt="homepage" class="light-logo" />
                         </b>
-                        <span class="logo-text">
-                             <img src="<?= base_url() ?>assets/images/logo-text.png" alt="homepage" class="dark-logo" />
-                             <img src="<?= base_url() ?>assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
-                        </span>
                     </a>
                     <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
                 </div>

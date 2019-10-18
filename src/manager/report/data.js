@@ -42,12 +42,12 @@ $(function(){
                                                 <div class="pull-left">
                                                     <address>
                                                         <h3> &nbsp;<b class="text-danger">
-                                                            Logo UTI
+                                                            <img src="${BASE_URL}assets/sipf_image/logo_1.png" alt="logo" />
                                                         </b></h3>
-                                                        <p class="text-muted ml-1">E 104, Dharti-2,
-                                                            <br/> Alamat,
-                                                            <br/> Telepon,
-                                                            <br/> Email</p>
+                                                        <p class="text-muted ml-1">Jl. Siantar No. 18 RT. 4 / RW. 2 Cideng,
+                                                            <br/> Kec. Gambir, Kota Jakarta Pusat, DKI Jakarta,
+                                                            <br/> (021) 3505050,
+                                                            <br/> uti@gmail.co.id</p>
                                                     </address>
                                                 </div>
                                             </td>
