@@ -81,6 +81,10 @@
                         <input type="text" class="form-control" id="cabang" name="cabang">
                     </div>
                     <div class="form-group">
+                        <label for="">Nama Marketing</label>
+                        <input type="text" class="form-control" id="nama_marketing" name="nama_marketing">
+                    </div>
+                    <div class="form-group">
                         <label for="">No Rekening</label>
                         <input type="number" class="form-control" id="no_rekening" name="no_rekening">
                     </div>
@@ -132,6 +136,10 @@
                     <div class="form-group">
                         <label for="">Cabang</label>
                         <input type="text" class="form-control" id="edit_cabang" name="cabang">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Nama Marketing</label>
+                        <input type="text" class="form-control" id="edit_nama_marketing" name="nama_marketing">
                     </div>
                     <div class="form-group">
                         <label for="">No Rekening</label>

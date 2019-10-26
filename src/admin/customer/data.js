@@ -29,6 +29,7 @@ $(function () {
                 telepon: '#edit_telepon',
                 bank: '#edit_bank',
                 cabang: '#edit_cabang',
+                nama_marketing: '#edit_nama_marketing',
                 no_rekening: '#edit_no_rekening'
             },
             delete: {
@@ -173,6 +174,7 @@ $(function () {
                             $(index.edit.email).val(v.email)
                             $(index.edit.bank).val(v.bank)
                             $(index.edit.cabang).val(v.cabang)
+                            $(index.edit.nama_marketing).val(v.nama_marketing)
                             $(index.edit.no_rekening).val(v.no_rekening)
                         })
 

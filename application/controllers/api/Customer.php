@@ -46,6 +46,7 @@ class Customer extends CI_Controller {
                 $json['bank'] = $key->bank;
                 $json['cabang'] = $key->cabang;
                 $json['no_rekening'] = $key->no_rekening;
+                $json['nama_marketing'] = $key->nama_marketing;
                 $json['tgl_input_customer'] = $key->tgl_input_customer;
 
                 $data[] = $json;
@@ -94,6 +95,11 @@ class Customer extends CI_Controller {
                     'rules' => 'required|trim'
                 ),
                 array(
+                    'field' => 'nama_marketing',
+                    'label' => 'Nama Marketing',
+                    'rules' => 'required|trim'
+                ),
+                array(
                     'field' => 'no_rekening',
                     'label' => 'No Rekening',
                     'rules' => 'required|trim'
@@ -116,6 +122,7 @@ class Customer extends CI_Controller {
                     'telepon' => $this->post('telepon'),
                     'bank' => $this->post('bank'),
                     'cabang' => $this->post('cabang'),
+                    'nama_marketing' => $this->post('nama_marketing'),
                     'no_rekening' => $this->post('no_rekening')
                 );
 
@@ -180,6 +187,11 @@ class Customer extends CI_Controller {
                     'rules' => 'required|trim'
                 ),
                 array(
+                    'field' => 'nama_marketing',
+                    'label' => 'Nama Marketing',
+                    'rules' => 'required|trim'
+                ),
+                array(
                     'field' => 'no_rekening',
                     'label' => 'No Rekening',
                     'rules' => 'required|trim'
@@ -203,6 +215,7 @@ class Customer extends CI_Controller {
                     'telepon' => $this->put('telepon'),
                     'bank' => $this->put('bank'),
                     'cabang' => $this->put('cabang'),
+                    'nama_marketing' => $this->put('nama_marketing'),
                     'no_rekening' => $this->put('no_rekening')
                 );
 

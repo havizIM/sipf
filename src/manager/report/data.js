@@ -25,6 +25,8 @@ $(function(){
         return {
             renderReport: (data) => {
 
+                console.log(data);
+
                 const list_bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
                 const bulan = $(input.bulan).val();
                 const tahun = $(input.tahun).val();
@@ -62,6 +64,7 @@ $(function(){
                                                     <th class="text-center">#</th>
                                                     <th>Nama</th>
                                                     <th>Perusahaan</th>
+                                                    <th>Marketing</th>
                                                     <th class="text-right">Jumlah PO</th>
                                                     <th class="text-right">Total PO</th>
                                                     <th class="text-right">Total Fee</th>
@@ -79,6 +82,7 @@ $(function(){
                                 <td>${no++}</td>
                                 <td>${v.customer.nama_pic}</td>
                                 <td>${v.customer.nama_perusahaan}</td>
+                                <td>${v.nama_marketing}</td>
                                 <td class="text-right">${v.count_total_po}</td>
                                 <td class="text-right">Rp. ${parseInt(v.grand_total_po).toLocaleString(['ban', 'id'])}</td>
                                 <td class="text-right">Rp. ${parseInt(v.grand_total_fee).toLocaleString(['ban', 'id'])}</td>

@@ -55,10 +55,12 @@ $route['translate_uri_dashes'] = true;
 
 $route['admin/purchase_order/add'] = 'admin/add_purchase_order';
 $route['admin/purchase_order/edit/(:any)'] = 'admin/edit_purchase_order/$1';
+$route['admin/payment/(:any)'] = 'admin/detail_payment/$1';
 
 $route['finance/payment/add'] = 'finance/add_payment';
 $route['finance/payment/edit/(:any)'] = 'finance/edit_payment/$1';
 $route['finance/payment/(:any)'] = 'finance/detail_payment/$1';
+
 
 
 /*

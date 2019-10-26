@@ -52,7 +52,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Marketing</label>
-                            <input type="text" class="form-control" name="marketing" id="marketing">
+                            <input type="text" class="form-control" name="marketing" id="marketing" readonly>
                         </div>
                         <button class="btn btn-info btn-block" type="submit">Simpan</button>
                     </form>

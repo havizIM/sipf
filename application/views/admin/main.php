@@ -80,6 +80,7 @@
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#/dashboard" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#/customer" aria-expanded="false"><i class="fas fa-user"></i><span class="hide-menu">Customer</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#/purchase_order" aria-expanded="false"><i class="fas fa-file"></i><span class="hide-menu">Purchase Order</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#/payment" aria-expanded="false"><i class="fas fa-dollar-sign"></i><span class="hide-menu">Payment</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#/log" aria-expanded="false"><i class="fas fa-recycle"></i><span class="hide-menu">Log</span></a></li>
                         
                     </ul>

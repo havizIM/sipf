@@ -10,6 +10,7 @@ $(function () {
         input: {
             id_customer: '#id_customer',
             customer: '#customer',
+            marketing: '#marketing',
             total_po: '#total_po',
             total_fee: '#total_fee'
         },
@@ -51,7 +52,7 @@ $(function () {
             {
                 data: null, render: (data, type, row) => {
                     return `
-                        <button class="btn btn-success btn-sm btn_pilih" data-id="${row.id_customer}" data-name="${row.nama_perusahaan}"><i class="fa fa-search"></i> Pilih</button>
+                        <button class="btn btn-success btn-sm btn_pilih" data-id="${row.id_customer}" data-marketing="${row.nama_marketing}" data-name="${row.nama_perusahaan}"><i class="fa fa-search"></i> Pilih</button>
                     `
                 }
             },
@@ -96,8 +97,10 @@ $(function () {
             $(table).on('click', button.pilih, function() {
                 let id = $(this).data('id')
                 let name = $(this).data('name')
+                let marketing = $(this).data('marketing')
 
                 $(input.id_customer).val(id)
+                $(input.marketing).val(marketing)
                 $(input.customer).val(`${id} - ${name}`).trigger('keyup')
 
                 $(modal.lookup).modal('hide')

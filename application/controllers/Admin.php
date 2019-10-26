@@ -38,5 +38,15 @@ class Admin extends CI_Controller {
 	{
 		$this->load->view('admin/log/data');
 	}
+
+	public function payment()
+	{
+		$this->load->view('admin/payment/data');
+	}
+
+	public function detail_payment($id)
+	{
+		$this->load->view('admin/payment/detail', $id);
+	}
 	
 }

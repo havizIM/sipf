@@ -70,6 +70,7 @@ class Report extends CI_Controller {
                         'cabang' => $key->cabang,
                         'no_rekening' => $key->no_rekening
                     );
+                    $json['nama_marketing'] = $key->nama_marketing;
                     $json['grand_total_fee'] = $key->grand_total_fee;
                     $json['grand_total_po'] = $key->grand_total_po;
                     $json['count_total_po'] = $key->count_total_po;
