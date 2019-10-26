@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Waktu pembuatan: 16 Okt 2019 pada 19.23
--- Versi server: 10.4.6-MariaDB
--- Versi PHP: 7.1.32
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 26 Okt 2019 pada 15.41
+-- Versi server: 10.4.8-MariaDB
+-- Versi PHP: 7.3.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -37,8 +37,17 @@ CREATE TABLE `customer` (
   `bank` varchar(10) NOT NULL,
   `cabang` varchar(20) NOT NULL,
   `no_rekening` varchar(20) NOT NULL,
+  `nama_marketing` varchar(30) NOT NULL,
   `tgl_input_customer` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `customer`
+--
+
+INSERT INTO `customer` (`id_customer`, `nama_perusahaan`, `nama_pic`, `email`, `telepon`, `bank`, `cabang`, `no_rekening`, `nama_marketing`, `tgl_input_customer`) VALUES
+('CUST-000001', 'PT. AAA ', 'Dian Ratna Sari', 'aaa@gmail.com', '123123123', 'BCA', 'Jembatan Lima', '123123123123', 'Cobaaaa', '2019-10-18 15:18:25'),
+('CUST-000002', 'PT ERLANGGA', 'Sinta', 'sinta@gmail.com', '08971234667', 'bca', 'biak', '544799687', 'Cobaaa', '2019-10-18 16:12:19');
 
 -- --------------------------------------------------------
 
@@ -55,6 +64,14 @@ CREATE TABLE `payment` (
   `tgl_input_payment` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `payment`
+--
+
+INSERT INTO `payment` (`no_payment`, `id_customer`, `id_user`, `tgl_payment`, `total_bayar`, `tgl_input_payment`) VALUES
+('PY-1019-001', 'CUST-000001', 'USR-0000003', '2019-10-18', 7500000, '2019-10-18 15:21:39'),
+('PY-1019-002', 'CUST-000002', 'USR-0000003', '2019-10-18', 1000000, '2019-10-18 16:16:08');
+
 -- --------------------------------------------------------
 
 --
@@ -66,6 +83,14 @@ CREATE TABLE `payment_detail` (
   `no_po` varchar(11) NOT NULL,
   `jml_dibayar` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `payment_detail`
+--
+
+INSERT INTO `payment_detail` (`no_payment`, `no_po`, `jml_dibayar`) VALUES
+('PY-1019-001', 'PO-AAA-001', 7500000),
+('PY-1019-002', 'PO-ER-001', 1000000);
 
 -- --------------------------------------------------------
 
@@ -84,6 +109,16 @@ CREATE TABLE `purchase_order` (
   `marketing` varchar(30) NOT NULL,
   `approve` enum('T','Y') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `purchase_order`
+--
+
+INSERT INTO `purchase_order` (`no_po`, `id_customer`, `id_user`, `file_po`, `total_po`, `total_fee`, `tgl_input_po`, `marketing`, `approve`) VALUES
+('PO-AAA-001', 'CUST-000001', 'USR-0000002', 'a8653a03b611c6e851935372814e9f4c.png', 150000000, 7500000, '2019-10-18 15:19:29', '', 'Y'),
+('PO-AAA-003', 'CUST-000001', 'USR-0000002', 'cb45784a41318cb74adbed344ac497c2.jpg', 50000000, 1000000, '2019-10-18 15:49:53', '', 'T'),
+('PO-AAA-123', 'CUST-000001', 'USR-0000002', '5c1715397830f7473b23bb3f2dcb0cf8.jpg', 30000000, 1500000, '2019-10-18 15:46:06', '', 'Y'),
+('PO-ER-001', 'CUST-000002', 'USR-0000004', 'f301bfc59be9e619fc4213f8b4879eef.jpg', 50000000, 1000000, '2019-10-18 16:13:21', '', 'Y');
 
 -- --------------------------------------------------------
 
@@ -108,7 +143,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `username`, `password`, `nama_lengkap`, `email`, `telepon`, `level`, `aktif`, `tgl_registrasi`) VALUES
-('USR-0000001', 'siti', 'sitich', 'Siti Chadijah', 'siti@gmail.com', '08987748441', 'Manager', 'Y', '2019-10-01 16:21:06');
+('USR-0000001', 'siti', 'sitich', 'Siti Chadijah', 'siti@gmail.com', '08987748441', 'Manager', 'Y', '2019-10-01 16:21:06'),
+('USR-0000002', 'havizim', 'havizim', 'Haviz Indra Maulana', 'haviz_im@outlook.com', '08987748441', 'Admin', 'Y', '2019-10-18 15:16:25'),
+('USR-0000003', 'raffy', 'raffy', 'Raffy Ahmad', 'raffy@gmail.com', '123123123', 'Finance', 'Y', '2019-10-18 15:17:19'),
+('USR-0000004', 'admin1', '1234', 'siti chadijah', 'shitichadijah@gmail.com', '083872405472', 'Admin', 'Y', '2019-10-18 16:06:51');
 
 -- --------------------------------------------------------
 
@@ -164,7 +202,69 @@ INSERT INTO `user_log` (`id_log`, `id_user`, `referensi`, `deskripsi`, `tgl_log`
 (105, 'USR-0000001', 'Login', 'Berhasil melakukan Login', '2019-10-16 06:29:38'),
 (106, 'USR-0000001', 'Logout', 'Berhasil melakukan logout', '2019-10-16 06:30:34'),
 (109, 'USR-0000001', 'Login', 'Berhasil melakukan Login', '2019-10-16 14:28:52'),
-(110, 'USR-0000001', 'Logout', 'Berhasil melakukan logout', '2019-10-16 16:11:05');
+(110, 'USR-0000001', 'Logout', 'Berhasil melakukan logout', '2019-10-16 16:11:05'),
+(115, 'USR-0000001', 'Login', 'Berhasil melakukan Login', '2019-10-18 00:17:44'),
+(116, 'USR-0000001', 'Logout', 'Berhasil melakukan logout', '2019-10-18 00:19:36'),
+(117, 'USR-0000001', 'Login', 'Berhasil melakukan Login', '2019-10-18 15:14:56'),
+(118, 'USR-0000001', 'User', 'Menambahkan user baru', '2019-10-18 15:16:25'),
+(119, 'USR-0000001', 'User', 'Menambahkan user baru', '2019-10-18 15:17:19'),
+(120, 'USR-0000001', 'Logout', 'Berhasil melakukan logout', '2019-10-18 15:17:38'),
+(121, 'USR-0000002', 'Login', 'Berhasil melakukan Login', '2019-10-18 15:17:47'),
+(122, 'USR-0000002', 'Customer', 'Menambahkan customer baru', '2019-10-18 15:18:25'),
+(123, 'USR-0000002', 'PO', 'Menambahkan PO baru', '2019-10-18 15:19:29'),
+(124, 'USR-0000002', 'Logout', 'Berhasil melakukan logout', '2019-10-18 15:19:49'),
+(125, 'USR-0000001', 'Login', 'Berhasil melakukan Login', '2019-10-18 15:19:53'),
+(126, 'USR-0000001', 'PO', 'Approve purchase order', '2019-10-18 15:20:17'),
+(127, 'USR-0000001', 'Logout', 'Berhasil melakukan logout', '2019-10-18 15:20:22'),
+(128, 'USR-0000003', 'Login', 'Berhasil melakukan Login', '2019-10-18 15:20:27'),
+(129, 'USR-0000003', 'Payment', 'Menambahkan Payment baru', '2019-10-18 15:21:39'),
+(130, 'USR-0000003', 'Logout', 'Berhasil melakukan logout', '2019-10-18 15:23:27'),
+(131, 'USR-0000001', 'Login', 'Berhasil melakukan Login', '2019-10-18 15:23:39'),
+(132, 'USR-0000001', 'Login', 'Berhasil melakukan Login', '2019-10-18 15:23:39'),
+(133, 'USR-0000001', 'Logout', 'Berhasil melakukan logout', '2019-10-18 15:32:44'),
+(134, 'USR-0000003', 'Login', 'Berhasil melakukan Login', '2019-10-18 15:32:48'),
+(135, 'USR-0000003', 'Logout', 'Berhasil melakukan logout', '2019-10-18 15:36:18'),
+(136, 'USR-0000001', 'Login', 'Berhasil melakukan Login', '2019-10-18 15:39:10'),
+(137, 'USR-0000001', 'Logout', 'Berhasil melakukan logout', '2019-10-18 15:45:33'),
+(138, 'USR-0000002', 'Login', 'Berhasil melakukan Login', '2019-10-18 15:45:38'),
+(139, 'USR-0000002', 'PO', 'Menambahkan PO baru', '2019-10-18 15:46:06'),
+(140, 'USR-0000002', 'Logout', 'Berhasil melakukan logout', '2019-10-18 15:46:54'),
+(141, 'USR-0000001', 'Login', 'Berhasil melakukan Login', '2019-10-18 15:46:58'),
+(142, 'USR-0000001', 'PO', 'Approve purchase order', '2019-10-18 15:47:04'),
+(143, 'USR-0000001', 'Logout', 'Berhasil melakukan logout', '2019-10-18 15:47:41'),
+(144, 'USR-0000002', 'Login', 'Berhasil melakukan Login', '2019-10-18 15:47:49'),
+(145, 'USR-0000002', 'PO', 'Menambahkan PO baru', '2019-10-18 15:49:53'),
+(146, 'USR-0000002', 'Logout', 'Berhasil melakukan logout', '2019-10-18 16:00:51'),
+(147, 'USR-0000001', 'Login', 'Berhasil melakukan Login', '2019-10-18 16:02:06'),
+(148, 'USR-0000001', 'User', 'Menambahkan user baru', '2019-10-18 16:06:51'),
+(149, 'USR-0000001', 'Logout', 'Berhasil melakukan logout', '2019-10-18 16:07:09'),
+(150, 'USR-0000001', 'Login', 'Berhasil melakukan Login', '2019-10-18 16:07:29'),
+(151, 'USR-0000001', 'Logout', 'Berhasil melakukan logout', '2019-10-18 16:07:50'),
+(152, 'USR-0000001', 'Login', 'Berhasil melakukan Login', '2019-10-18 16:08:18'),
+(153, 'USR-0000001', 'Logout', 'Berhasil melakukan logout', '2019-10-18 16:09:49'),
+(154, 'USR-0000004', 'Login', 'Berhasil melakukan Login', '2019-10-18 16:10:00'),
+(155, 'USR-0000004', 'Auth', 'Berhasil mengganti password', '2019-10-18 16:10:31'),
+(156, 'USR-0000004', 'Logout', 'Berhasil melakukan logout', '2019-10-18 16:10:40'),
+(157, 'USR-0000004', 'Login', 'Berhasil melakukan Login', '2019-10-18 16:10:56'),
+(158, 'USR-0000004', 'Customer', 'Menambahkan customer baru', '2019-10-18 16:12:19'),
+(159, 'USR-0000004', 'PO', 'Menambahkan PO baru', '2019-10-18 16:13:21'),
+(160, 'USR-0000004', 'Logout', 'Berhasil melakukan logout', '2019-10-18 16:13:37'),
+(161, 'USR-0000001', 'Login', 'Berhasil melakukan Login', '2019-10-18 16:13:52'),
+(162, 'USR-0000001', 'PO', 'Approve purchase order', '2019-10-18 16:14:02'),
+(163, 'USR-0000001', 'Logout', 'Berhasil melakukan logout', '2019-10-18 16:14:37'),
+(164, 'USR-0000003', 'Login', 'Berhasil melakukan Login', '2019-10-18 16:14:56'),
+(165, 'USR-0000003', 'Payment', 'Menambahkan Payment baru', '2019-10-18 16:16:08'),
+(166, 'USR-0000001', 'Login', 'Berhasil melakukan Login', '2019-10-26 13:13:41'),
+(167, 'USR-0000001', 'Logout', 'Berhasil melakukan logout', '2019-10-26 13:13:52'),
+(168, 'USR-0000002', 'Login', 'Berhasil melakukan Login', '2019-10-26 13:13:56'),
+(169, 'USR-0000002', 'Logout', 'Berhasil melakukan logout', '2019-10-26 13:18:40'),
+(170, 'USR-0000001', 'Login', 'Berhasil melakukan Login', '2019-10-26 13:18:47'),
+(171, 'USR-0000001', 'Logout', 'Berhasil melakukan logout', '2019-10-26 13:20:27'),
+(172, 'USR-0000001', 'Login', 'Berhasil melakukan Login', '2019-10-26 13:20:31'),
+(173, 'USR-0000001', 'Logout', 'Berhasil melakukan logout', '2019-10-26 13:25:37'),
+(174, 'USR-0000002', 'Login', 'Berhasil melakukan Login', '2019-10-26 13:26:51'),
+(175, 'USR-0000002', 'Logout', 'Berhasil melakukan logout', '2019-10-26 13:33:42'),
+(176, 'USR-0000001', 'Login', 'Berhasil melakukan Login', '2019-10-26 13:33:49');
 
 --
 -- Indexes for dumped tables
@@ -220,7 +320,7 @@ ALTER TABLE `user_log`
 -- AUTO_INCREMENT untuk tabel `user_log`
 --
 ALTER TABLE `user_log`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
